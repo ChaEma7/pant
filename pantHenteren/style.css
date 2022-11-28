@@ -1,0 +1,28 @@
+.opdeler {
+  position: relative;
+  max-width: 350px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.opdeler:before {
+  content: " ";
+  display: block;
+  height: 1px;
+  width: 103px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  background: red;
+}
+
+.opdeler:after {
+  content: " ";
+  display: block;
+  height: 1px;
+  width: 103px;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  background: red;
+}
