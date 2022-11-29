@@ -4,16 +4,18 @@
 
 // ================================== OPRET KONTO ======================================
     function check_if_username_is_taken($email){
+            global $mySQL;
+            //
             $sql = "SELECT * FROM pantLogin WHERE email = '$email'";
             $response = $mySQL->query($sql);
-            // fetch_assoc() fetches a result row as an associative array
+            // fetch_assoc() Henter resultatet af tabellens række som et sammenhængende array
             $email = $response->fetch_assoc();
             $is_username_taken = is_array($email) ? is_array($email) : false;
             return $is_username_taken;
         }
     
 
-    // Tager værdier fra signup formen fra index.php og indsætter dem i de korrekte databaser
+    // Tager værdier fra createUser formen fra create.php og indsætter dem i de korrekte databaser
     if(isset($_POST['createUser'])){
         $firstname = $_POST['firstname'];
         $zipcode = $_POST['zipcode'];
@@ -24,14 +26,20 @@
 
         $is_username_taken = check_if_username_is_taken($email);
 
+        if(8 > strlen($userPassword1)) {
+            header('Location: create.php?status=passwordTooShort');
+            exit;
+        }
+
+        
         if($is_username_taken == true){
-        $_SESSION['user_message'] = "Denne email er allerede brugt!";
-        header('Location: create.php');
+        header('Location: create.php?status=userTaken');
+        exit;
         };
         
         if($userPassword1 !== $userPassword2)  {
             header("location: create.php?status=passwordCreateFail");
-            
+            exit;
         } else {
             // krypterer kodeordet til en en-vejs hashing
             $passEncrypt = password_hash($userPassword1, PASSWORD_DEFAULT);
@@ -77,5 +85,61 @@
 
 
     }
+
+    // ==================================== UPDATE PROFILE =======================================
+
+    if(isset($_POST['update'])){
+        $inputAge = $_POST['age'];
+        $inputGender = $_POST['gender'];
+        $profileText = $_POST['profileText'];
+        $userID = $_SESSION['login'];
+        // Finder filen fra inputtet i index
+        $file = $_FILES["fileToUpload"];
+
+        $fileType = strtolower(pathinfo($file["name"], PATHINFO_EXTENSION));
+        $allowedFiles = array("jpg", "jpeg");
+
+        //var_dump($fileType);
+        //exit;
+        
+        // File Upload
+        if($file['name'] != "") {
+            if(!in_array($fileType, $allowedFiles)) {
+                $error_message = "<p>Sorry, your image file has to be jpg or jpeg</p>";
+                echo $error_message;
+                exit;      
+            } else {
+                // Vælger hvilken (lokal)mappe den oploadet fil skal ligges i
+                $targetFolder = "original/";
+                // omdanner den uploadet fils navn til en genkendelig variabel???
+                $fileName = $_SESSION['login'] . "_" . basename($file["name"]);
+                // Flytter den navngivet fil til den rigtige mappe under det rigtige navn?
+                move_uploaded_file($file["tmp_name"], $targetFolder . $fileName);
+
+                if($fileName != ""){
+                    $sql = "UPDATE meProfile SET profilepic = '$fileName' WHERE id = '$userID'";
+                    $result = $mySQL->query($sql);
+                } 
+            }
+        }
+
+        if($profileText != ""){
+            $sql = "UPDATE meProfile SET profiletext = '$profileText' WHERE id = '$userID'";
+            $result = $mySQL->query($sql);
+        }
+
+        if($inputAge != ""){
+            $sql = "UPDATE meUsers SET age = '$inputAge' WHERE id = '$userID' ";
+            $result = $mySQL->query($sql);
+        }
+        
+        if($inputGender != ""){
+            $sql = "UPDATE meUsers SET gender = '$inputGender' WHERE id = '$userID' ";
+            $result = $mySQL->query($sql); 
+        } 
+           
+    }
+
+    header("location: my-profile.php"); 
 
 ?>
