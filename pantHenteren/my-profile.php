@@ -19,16 +19,6 @@
                 $_SESSION['firstname'] = $user->firstname;
                 $_SESSION['profilepicture'] = $user->profilepicture;
                 $_SESSION['profiletext'] = $user->profiletext;
-
-                /*  selecter al data fra meProfile hvor id'et stemmer overens med token
-                    al data fetches og ligges ind i sessions 
-
-                $sql2 = "SELECT * FROM meProfile WHERE id = '$userID'";
-                $response2 = $mySQL->query($sql2);
-                $userProfile = $response2->fetch_object();
-
-                $_SESSION['proText'] = $userProfile->profiletext;
-                $_SESSION['proPic'] = $userProfile->profilepic; */
             }
     ?>
 <!DOCTYPE html>
@@ -80,7 +70,11 @@
             </section> 
 
             <section class="logout">
-            <a href="logout.php"><img src="img/logout-ikon.png" alt="logout ikon"> Log af</a>
+                <a href="logout.php"><img src="img/logout-ikon.png" alt="logout ikon"> Log af</a>
+            </section>
+
+            <section>
+                <br><br><br><br><br>
             </section>
 
     </main>

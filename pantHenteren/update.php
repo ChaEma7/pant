@@ -1,3 +1,34 @@
+<?php 
+        session_start();
+        include("mysql.php");
+        $status = isset($_REQUEST['status']) ? $_REQUEST['status'] : "";
+
+        if(!isset($_SESSION['login'])){
+            // Hvis der ikke er logget ind, sendes man tilbage til index.php
+            header('location: login.php');
+            exit;
+            } else {
+                $userID = $_SESSION['login'];
+
+                /*  selecter betemst data fra pantUsers hvor id'et stemmer overens med token
+                    al data fetches og ligges ind i sessions */
+                $sql = "SELECT * FROM pantUsers WHERE id = '$userID'";
+                $response = $mySQL->query($sql);
+                $user = $response->fetch_object();
+
+                $_SESSION['firstname'] = $user->firstname;
+                $_SESSION['zipcode'] = $user->zipcode;
+                $_SESSION['city'] = $user->city;
+                $_SESSION['profilepicture'] = $user->profilepicture;
+                $_SESSION['profiletext'] = $user->profiletext;
+
+                $sql = "SELECT email FROM pantLogin WHERE id = '$userID'";
+                $response = $mySQL->query($sql);
+                $user = $response->fetch_object();
+
+                $_SESSION['email'] = $user->email;
+            }
+?>
 <!DOCTYPE html>
 <html lang="da">
 <head>
@@ -19,6 +50,50 @@
 
     <main>
         <h1>Rediger profil</h1>
+        <section>
+            <form method="post" action="backend.php" enctype="multipart/form-data">
+                <?php
+                    if(!isset($_SESSION['profilepicture'])){
+                            echo "<img class='profilePics' src='img/dummy.jpg'></img>";
+                        } else {
+                            echo "<img class='profilePics' src='original/" . $_SESSION['profilepicture'] . "'></img>";
+                        } 
+                ?>
+                <p class="input-beskrivelse">Update your profile picture</p>
+                    <input type="file" name="fileToUpload">
+                <br>
+                <br>
+                <p class="input-beskrivelse">Update your profile text</p>
+                    <textarea name="profiletext" id="protext" cols="30" rows="5" placeholder="Din profiltekst..."><?php echo $_SESSION['profiletext'] ?></textarea>
+                <p class="input-beskrivelse">Navn</p>
+                    <input type="text" name="firstname" placeholder="<?php echo $_SESSION['firstname']?>">
+                <div class="flex-input">
+                    <div>
+                        <p class="input-beskrivelse">Postnr.</p>
+                            <input type="number" name="zipcode" placeholder="<?php echo $_SESSION['zipcode']?>">
+                    </div>
+                    <div>
+                        <p class="input-beskrivelse">By</p>
+                            <input type="text" name="city" placeholder="<?php echo $_SESSION['city']?>">
+                    </div>
+                </div>
+                <p class="input-beskrivelse">Email</p>
+                    <input type="text" name="userEmail" placeholder="<?php echo $_SESSION['email']?>">
+                    <br>
+                    <?php
+                    if($status == "userTaken") {
+                        // udskriver status fra url'en
+                        echo "Den indtastede email er allerede brugt";
+                    }
+                    ?>
+                <br>
+                <a href="404.php">Ændre afgangskode</a>
+                <br>
+                <input class="btn" type="submit" name="updateUser" value="Gem ændringer">
+                <br>
+                <input class="slet-btn" type="submit" name="deleteUser" value="Slet">
+            </form>
+        </section>
     </main>
     
 </body>

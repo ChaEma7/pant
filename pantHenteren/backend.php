@@ -88,10 +88,12 @@
 
     // ==================================== UPDATE PROFILE =======================================
 
-    if(isset($_POST['update'])){
-        $inputAge = $_POST['age'];
-        $inputGender = $_POST['gender'];
-        $profileText = $_POST['profileText'];
+    if(isset($_POST['updateUser'])){
+        $inputName = $_POST['firstname'];
+        $inputProfileText = $_POST['profiletext'];
+        $inputZipcode = $_POST['zipcode'];
+        $inputCity = $_POST['city'];
+        $inputEmail = $_POST['userEmail'];
         $userID = $_SESSION['login'];
         // Finder filen fra inputtet i index
         $file = $_FILES["fileToUpload"];
@@ -105,7 +107,7 @@
         // File Upload
         if($file['name'] != "") {
             if(!in_array($fileType, $allowedFiles)) {
-                $error_message = "<p>Sorry, your image file has to be jpg or jpeg</p>";
+                $error_message = "<p>Beklager, din fil skal være af formatet jpg eller jpeg</p>";
                 echo $error_message;
                 exit;      
             } else {
@@ -117,29 +119,60 @@
                 move_uploaded_file($file["tmp_name"], $targetFolder . $fileName);
 
                 if($fileName != ""){
-                    $sql = "UPDATE meProfile SET profilepic = '$fileName' WHERE id = '$userID'";
+                    $sql = "UPDATE pantUsers SET profilepicture = '$fileName' WHERE id = '$userID'";
                     $result = $mySQL->query($sql);
                 } 
             }
         }
 
-        if($profileText != ""){
-            $sql = "UPDATE meProfile SET profiletext = '$profileText' WHERE id = '$userID'";
+        if($inputName != ""){
+            $sql = "UPDATE pantUsers SET firstname = '$inputName' WHERE id = '$userID' ";
             $result = $mySQL->query($sql);
         }
 
-        if($inputAge != ""){
-            $sql = "UPDATE meUsers SET age = '$inputAge' WHERE id = '$userID' ";
+        if($inputProfileText != ""){
+            $sql = "UPDATE pantUsers SET profiletext = '$inputProfileText' WHERE id = '$userID'";
             $result = $mySQL->query($sql);
         }
         
-        if($inputGender != ""){
-            $sql = "UPDATE meUsers SET gender = '$inputGender' WHERE id = '$userID' ";
+        if($inputZipcode != ""){
+            $sql = "UPDATE pantUsers SET zipcode = '$inputZipcode' WHERE id = '$userID' ";
             $result = $mySQL->query($sql); 
         } 
+
+        if($inputCity != ""){
+            $sql = "UPDATE pantUsers SET city = '$inputCity' WHERE id = '$userID' ";
+            $result = $mySQL->query($sql); 
+        } 
+
+        if($inputEmail != ""){
+                $is_username_taken = check_if_username_is_taken($inputEmail);
+
+                if($is_username_taken == true){
+                    header('Location: update.php?status=userTaken');
+                    exit;
+                } else {
+                    $sql = "UPDATE pantLogin SET email = '$inputEmail' WHERE id = '$userID' ";
+                    $result = $mySQL->query($sql); 
+                }
+        } 
+
+        header("location: my-profile.php"); 
            
     }
 
-    header("location: my-profile.php"); 
+    
 
+// ==================================== DELETE PROFILE =======================================
+
+    
+
+     if(isset($_POST['deleteUser'])){
+        $userID = $_SESSION['login'];
+
+        $sql = "CALL deletePantUser ('$userID')";
+        $result = $mySQL->query($sql);
+        header("location: login.php"); 
+    }
+    
 ?>

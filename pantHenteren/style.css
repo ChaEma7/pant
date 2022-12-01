@@ -169,3 +169,11 @@ nav {
   right: 0;
   background: red;
 }
+
+/* ======================================= PROFIL SIDEN ======================================= */
+
+.profilePics {
+  height: 110px;
+  width: 110px;
+  border-radius: 100%;
+}

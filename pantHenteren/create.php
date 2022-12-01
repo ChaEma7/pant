@@ -43,10 +43,16 @@
                 <form method="post" action="backend.php" enctype="multipart/form-data">
                     <p class="input-beskrivelse">Navn<strong>*</strong></p>
                         <input type="text" name="firstname" placeholder="Fornavn" required>
-                    <p class="input-beskrivelse">Postnr.<strong>*</strong></p>
-                        <input type="number" name="zipcode" placeholder="0000" required>
-                    <p class="input-beskrivelse">By<strong>*</strong></p>
-                        <input type="text" name="city" placeholder="Bynavn" required>
+                    <div class="flex-input">
+                        <div>
+                            <p class="input-beskrivelse">Postnr.</p>
+                                <input type="number" name="zipcode" placeholder="0000" required>
+                        </div>
+                        <div>
+                            <p class="input-beskrivelse">By</p>
+                                <input type="text" name="city" placeholder="Bynavn" required>
+                        </div>
+                    </div>
                     <p class="input-beskrivelse">Email<strong>*</strong></p>
                         <input type="text" name="userEmail" placeholder="mail@mail.com" required>
                         <?php
