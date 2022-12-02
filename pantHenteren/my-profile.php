@@ -42,6 +42,7 @@
         <a href="index.php"><img class="header-logo" src="img/logo.png" alt="panthenter logo"></a>
         <a href="404.php"><img class="noti" src="img/notifikation-ikon.png" alt="notifikation ikon"></a>
     </header>
+    <img class="baggrund" src="img/baggrundsbillede.png" alt="baggrundsbillede">
     <main>
         
             <section>
@@ -57,25 +58,26 @@
                     //  Her viser den brugerens navn
                     echo "<h2>" . $_SESSION['firstname'] . "</h2> <br>";
                     ?>
-                    <a href="update.php"><img src="img/rediger-ikon.png" alt="rediger ikon"></a>
-                    <?php
-                    if($_SESSION['profiletext'] == NULL) {
-                        echo "<p>Jeg har endnu ikke tilføjet en profil tekst, men jeg er rigtig god til at aflevere pant.</p>";
-                    } else {
-                        echo "<p>" . $_SESSION['profiletext'] . "</p>";
-                    }                   
-                    ?>
-                    
-                </div>
+                    <a href="update.php"><img class="rediger-ikon" src="img/rediger-ikon.png" alt="rediger ikon"></a>
+                    <div class="backlayer">
+                        <h2 class="left-h2">Profiltekst</h2>
+                            <?php
+                            if($_SESSION['profiletext'] == NULL) {
+                                echo "<p>Jeg har endnu ikke tilføjet en profil tekst, men jeg er rigtig god til at aflevere pant.</p>";
+                            } else {
+                                echo "<p>" . $_SESSION['profiletext'] . "</p>";
+                            }                   
+                            ?>
+                        <h2 class="left-h2">Anmeldelser</h2>
+                        <section class="logout">
+                            <a href="logout.php"><img class="logout-ikon" src="img/logout-ikon.png" alt="logout ikon"> Log af</a>
+                        </section>
+
+                        <section>
+                            <br><br><br><br><br>
+                        </section>
+                    </div>
             </section> 
-
-            <section class="logout">
-                <a href="logout.php"><img src="img/logout-ikon.png" alt="logout ikon"> Log af</a>
-            </section>
-
-            <section>
-                <br><br><br><br><br>
-            </section>
 
     </main>
     <footer>

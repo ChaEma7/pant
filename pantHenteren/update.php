@@ -40,6 +40,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <header class="update-header">
        
@@ -47,10 +48,12 @@
             <div class="update-luk"><button class="luk-knap" onclick="history.back()"></button></div>
         
     </header>
-
+<img class="baggrund" src="img/baggrundsbillede.png" alt="baggrundsbillede">
     <main>
-        <h1>Rediger profil</h1>
-        <section>
+        
+        
+        <section class="backlayer">
+            <h1>Rediger profil</h1>
             <form method="post" action="backend.php" enctype="multipart/form-data">
                 <?php
                     if(!isset($_SESSION['profilepicture'])){
@@ -59,24 +62,24 @@
                             echo "<img class='profilePics' src='original/" . $_SESSION['profilepicture'] . "'></img>";
                         } 
                 ?>
-                <p class="input-beskrivelse">Update your profile picture</p>
-                    <input type="file" name="fileToUpload">
+                <p class="input-beskrivelse">Opdater dit profilbillede</p>
+                    <input class="file-upload" type="file" name="fileToUpload">
                 <br>
                 <br>
-                <p class="input-beskrivelse">Update your profile text</p>
+                <p class="input-beskrivelse">Opdater din profiltekst</p>
                     <textarea name="profiletext" id="protext" cols="30" rows="5" placeholder="Din profiltekst..."><?php echo $_SESSION['profiletext'] ?></textarea>
                 <p class="input-beskrivelse">Navn</p>
                     <input type="text" name="firstname" placeholder="<?php echo $_SESSION['firstname']?>">
-                <div class="flex-input">
-                    <div>
-                        <p class="input-beskrivelse">Postnr.</p>
-                            <input type="number" name="zipcode" placeholder="<?php echo $_SESSION['zipcode']?>">
+                    <div class="grid-input">
+                        <div class="zipcode">
+                            <p class="input-beskrivelse">Postnr.</p>
+                                <input type="number" name="zipcode" placeholder="<?php echo $_SESSION['zipcode']?>">
+                        </div>
+                        <div class="city">
+                            <p class="input-beskrivelse">By</p>
+                                <input type="text" name="city" placeholder="<?php echo $_SESSION['city']?>">
+                        </div>
                     </div>
-                    <div>
-                        <p class="input-beskrivelse">By</p>
-                            <input type="text" name="city" placeholder="<?php echo $_SESSION['city']?>">
-                    </div>
-                </div>
                 <p class="input-beskrivelse">Email</p>
                     <input type="text" name="userEmail" placeholder="<?php echo $_SESSION['email']?>">
                     <br>
@@ -87,14 +90,16 @@
                     }
                     ?>
                 <br>
-                <a href="404.php">Ændre afgangskode</a>
+                <a class="nedtonet" href="">Ændre adgangskode</a>
                 <br>
                 <input class="btn" type="submit" name="updateUser" value="Gem ændringer">
                 <br>
-                <input class="slet-btn" type="submit" name="deleteUser" value="Slet">
+                <input class="slet-btn nedtonet" type="submit" name="deleteUser" value="Slet konto">
             </form>
+            
         </section>
     </main>
     
 </body>
+
 </html>

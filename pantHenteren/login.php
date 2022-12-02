@@ -18,6 +18,7 @@
 
 
 <body class="body-height">
+    <img class="baggrund" src="img/baggrundsbillede.png" alt="baggrundsbillede">
     <main>
         <img src="img/logo.png" alt="pant henteren logo">
         <h1>Hej!</h1>
