@@ -19,19 +19,19 @@
 <body>
     <img class="baggrund" src="img/baggrundsbillede.png" alt="baggrundsbillede">
 <main>
-    <img src="img/logo.png" alt="pant henteren logo">
-        <h1>Velkommen til!</h1>
+    <img class="stort-logo" src="img/logo.png" alt="pant henteren logo">
+        <h1 class="h1-left">Velkommen til!</h1>
         <p>Vær med til at hjælpe dig selv, miljøet og andre!</p>
 
-         <section class="login-container">
-                <div>
-                    <a href="" class="quikLogin">
+         <section class="login-container backlayer">
+                <div class="quikLogin">
+                    <a href="">
                         <figure class="socialLogin-btn">
                             <img src="img/google-ikon.png" alt="google log ind">
                             <figcaption>Opret med Google</figcaption>
                         </figure>
                     </a>
-                    <a href="" class="quikLogin">
+                    <a href="">
                         <figure class="socialLogin-btn">
                             <img src="img/facebook-ikon-rund.png" alt="facebook log ind">
                             <figcaption>Opret med Facebook</figcaption>
@@ -43,19 +43,19 @@
                 </div>
                 <form method="post" action="backend.php" enctype="multipart/form-data">
                     <p class="input-beskrivelse">Navn<strong>*</strong></p>
-                        <input type="text" name="firstname" placeholder="Fornavn" required>
+                        <input class="text-input" type="text" name="firstname" placeholder="Fornavn" required>
                         <div class="grid-input">
                             <div class="zipcode">
                                 <p class="input-beskrivelse">Postnr.</p>
-                                    <input type="number" name="zipcode" placeholder="0000">
+                                    <input class="text-input" type="number" name="zipcode" placeholder="0000">
                             </div>
                             <div class="city">
                                 <p class="input-beskrivelse">By</p>
-                                    <input type="text" name="city" placeholder="Bynavn">
+                                    <input class="text-input" type="text" name="city" placeholder="Bynavn">
                             </div>
                         </div>
                     <p class="input-beskrivelse">Email<strong>*</strong></p>
-                        <input type="text" name="userEmail" placeholder="mail@mail.com" required>
+                        <input class="text-input" type="text" name="userEmail" placeholder="mail@mail.com" required>
                         <?php
                         if($status == "userTaken") {
                             // udskriver status fra url'en
@@ -63,9 +63,9 @@
                         }
                         ?>
                     <p class="input-beskrivelse">Kodeord<strong>*</strong></p>
-                        <input type="password" name="password1" placeholder="Min. 8 tegn" required>
+                        <input class="text-input" type="password" name="password1" placeholder="Min. 8 tegn" required>
                     <p class="input-beskrivelse">Gentag kodeord<strong>*</strong></p>
-                        <input type="password" name="password2" placeholder="Min. 8 tegn" required>
+                        <input class="text-input" type="password" name="password2" placeholder="Min. 8 tegn" required>
                         <?php
                         if($status == "passwordTooShort") {
                             // udskriver status fra url'en
@@ -84,7 +84,8 @@
                 }
                 
                 ?>
-                <p>Har du allerede en bruger? <a href="login.php">Log ind</a></p>
+                <p class="center">Har du allerede en bruger? <a href="login.php">Log ind</a></p>
+                <br>
            
             
         </section>

@@ -46,6 +46,13 @@
             // Her indsættes de rigtige værdier ved brug af proceduren addPantUser
             $sql = "CALL addPantUser ('$firstname', '$zipcode', '$city',  '$email', '$passEncrypt')";
             $result = $mySQL->query($sql);
+
+            $sql = "SELECT id FROM pantUsers ORDER BY id DESC LIMIT 1";
+            $result = $mySQL->query($sql);
+            $user = $result->fetch_assoc();
+
+            $_SESSION['login'] = $user['id'];
+            
             header("location: index.php");
             exit;
         }

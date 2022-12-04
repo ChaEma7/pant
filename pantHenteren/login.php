@@ -20,19 +20,19 @@
 <body class="body-height">
     <img class="baggrund" src="img/baggrundsbillede.png" alt="baggrundsbillede">
     <main>
-        <img src="img/logo.png" alt="pant henteren logo">
-        <h1>Hej!</h1>
+        <img class="stort-logo" src="img/logo.png" alt="pant henteren logo">
+        <h1 class="h1-left">Hej!</h1>
         <p>Måske en fed sætning her!</p>
 
-        <section class="login-container">
-                <div>
-                    <a href="" class="quikLogin">
+        <section class="login-container backlayer">
+                <div class="quikLogin">
+                    <a href="">
                         <figure class="socialLogin-btn">
                             <img src="img/google-ikon.png" alt="google log ind">
                             <figcaption>Log ind med Google</figcaption>
                         </figure>
                     </a>
-                    <a href="" class="quikLogin">
+                    <a href="">
                         <figure class="socialLogin-btn">
                             <img src="img/facebook-ikon-rund.png" alt="facebook log ind">
                             <figcaption>Log ind med Facebook</figcaption>
@@ -44,17 +44,19 @@
                 </div>
                 <form  method="post" action="backend.php">
                     <p class="input-beskrivelse">Email<strong>*</strong></p>
-                    <input type="text" name="userEmail" placeholder="mail@mail.com" required>
+                        <input class="text-input" type="text" name="userEmail" placeholder="mail@mail.com" required>
                     <p class="input-beskrivelse">Kodeord<strong>*</strong></p>
-                    <input type="password" name="password" placeholder="Min. 8 tegn" required>
-                    <br>
-                    <input id="husk" type="checkbox" name="husk" value="Husk mig">
-                    <label for="husk">Husk mig</label>
-                    <a href="">Glemt kodeord?</a>
-                    <br>
-                    <input class="btn" type="submit" name="login" value="Log ind">
+                        <input class="text-input" type="password" name="password" placeholder="Min. 8 tegn" required>
+                    <div class="kode-box">
+                        <div>
+                            <input id="husk-input" type="checkbox" name="husk" >
+                            <label for="husk-input">Husk mig</label>
+                        </div>
+                        <a href="">Glemt kodeord?</a>
+                    </div>
+                        <input class="btn" type="submit" name="login" value="Log ind">
                 </form>
-                <p>Ikke oprettet endnu? <a href="create.php">Opret konto</a></p>
+                <p class="center">Ikke oprettet endnu? <a href="create.php">Opret konto</a></p>
            
             
         </section>

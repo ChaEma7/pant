@@ -68,16 +68,6 @@ a {
   color: var(--darkgreen);
 }
 
-input {
-  border: none;
-  background-color: var(--white);
-  padding: 10px;
-  border-radius: 10px;
-  width: 330px;
-  font-size: 16px;
-  font-family: "Poppins", sans-serif;
-}
-
 .left-h2 {
   text-align: left;
   padding-top: 30px;
@@ -170,11 +160,50 @@ nav {
 
 /* ======================================= LOG IND SIDEN ======================================= */
 
+.stort-logo {
+  width: 123px;
+  margin-top: 50px;
+}
+
+.h1-left {
+  text-align: left;
+  padding-left: 20px;
+  margin-top: 60px;
+}
+
+.quikLogin {
+  padding-top: 30px;
+}
+
+.socialLogin-btn {
+  width: 350px;
+  height: 40px;
+  border: 1px solid var(--lightgreen);
+  border-radius: 10px;
+  margin: 10px 20px;
+  display: flex;
+}
+
+.socialLogin-btn img {
+  height: 30px;
+  align-self: center;
+  padding: 0 30px 0 30px;
+  position: absolute;
+}
+
+.socialLogin-btn figcaption {
+  align-self: center;
+  margin: auto;
+  color: var(--text);
+}
+
 .opdeler {
   position: relative;
+  margin-top: 30px;
   max-width: 350px;
   text-align: center;
   font-size: 12px;
+  color: var(--texttrans);
 }
 
 .opdeler:before {
@@ -182,10 +211,11 @@ nav {
   display: block;
   height: 1px;
   width: 103px;
+  margin-left: 20px;
   position: absolute;
   top: 50%;
   left: 0;
-  background: red;
+  background: var(--texttrans);
 }
 
 .opdeler:after {
@@ -193,10 +223,41 @@ nav {
   display: block;
   height: 1px;
   width: 103px;
+  margin-right: 20px;
   position: absolute;
   top: 50%;
   right: 0;
-  background: red;
+  background: var(--texttrans);
+}
+
+.text-input {
+  border: none;
+  background-color: var(--white);
+  padding: 10px;
+  border-radius: 10px;
+  width: 330px;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+}
+
+.kode-box {
+  width: 350px;
+  margin: auto;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+input[type="checkbox"] {
+  background-color: var(--white);
+  height: 20px;
+  width: 20px;
+  border: none;
+}
+
+.center {
+  margin: auto;
+  text-align: center;
 }
 
 /* ======================================= PROFIL SIDEN ======================================= */
@@ -266,9 +327,25 @@ textarea {
   width: 211px;
 }
 
+.update-input {
+  border: none;
+  background-color: var(--white);
+  padding: 10px;
+  border-radius: 10px;
+  width: 330px;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+}
+
 .btn {
   width: 350px;
   margin: 30px auto;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  width: 330px;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
   background-color: var(--orange);
   color: var(--white);
   font-weight: 600;
@@ -284,6 +361,95 @@ textarea {
   width: 100px;
   color: var(--darkgreen);
   margin-bottom: 30px;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  width: 330px;
+  font-size: 12px;
+  font-family: "Poppins", sans-serif;
+}
+
+/*----------------- popup delete accont -------------------*/
+
+.popup-overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+  display: none;
+}
+
+.popup-content {
+  position: fixed;
+  bottom: 0px;
+  height: 240px;
+  width: 390px;
+  border-radius: 40px 40px 0 0;
+  background: var(--white);
+  z-index: 2;
+  padding: 20px;
+  box-sizing: border-box;
+  display: none;
+}
+
+.close-btn {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.close-btn img {
+  height: 15px;
+  vertical-align: middle;
+}
+
+.popup-content h2 {
+  width: 240px;
+  margin: auto;
+  margin-top: 70px;
+}
+
+.popup-btns {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+}
+
+.annuller-btn {
+  width: 169px;
+  height: 40px;
+  border: none;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--darkgreen);
+}
+
+.delete-btn {
+  width: 169px;
+  height: 40px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  background-color: var(--orange);
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
+  color: var(--white);
+}
+
+.popup.active .popup-overlay {
+  display: block;
+}
+
+.popup.active .popup-content {
+  display: block;
 }
 
 /* ======================================= CREATE TASK SIDEN ======================================= */
@@ -306,6 +472,8 @@ textarea {
   padding: 0;
   text-align: center;
 }
+
+/*----------------- mængde knappen -------------------*/
 
 input[type="number"] {
   -webkit-appearance: textfield;
@@ -363,4 +531,86 @@ input[type="number"]::-webkit-outer-spin-button {
   padding: 0;
   text-align: center;
   font-size: 16px;
+}
+
+/*----------------- udbytte knappen -------------------*/
+
+/* input[type="range"] {
+  -webkit-appearance: none;
+  margin-right: 15px;
+  width: 200px;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 5px;
+  background-image: linear-gradient(#ff4500, #ff4500);
+  background-size: 70% 100%;
+  background-repeat: no-repeat;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #ff4500;
+  cursor: ew-resize;
+  box-shadow: 0 0 2px 0 #555;
+  transition: background .3s ease-in-out;
+}
+
+input[type=range]::-webkit-slider-runnable-track  {
+  -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+} */
+
+#udbytte {
+  width: 350px;
+}
+
+.udbytte-container {
+  margin-top: -10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.udbytte-kasse {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
+
+.udbytte-kasse p {
+  padding: 0;
+}
+
+.udbytte-kasse output {
+  font-weight: 800;
+}
+
+.udbytte-kasse-afhenter {
+  flex-direction: row-reverse;
+}
+
+.header-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  vertical-align: middle;
+  gap: 5px;
+}
+
+.header-info img {
+  height: 20px;
+  margin-top: 30px;
+}
+
+.header-info .left-h2 {
+  padding: 30px 0 0 20px;
+}
+
+.emballage {
 }
