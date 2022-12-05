@@ -63,9 +63,9 @@
                         <h2 class="left-h2">Profiltekst</h2>
                             <?php
                             if($_SESSION['profiletext'] == NULL) {
-                                echo "<p>Jeg har endnu ikke tilføjet en profil tekst, men jeg er rigtig god til at aflevere pant.</p>";
+                                echo "<p class='profiltekst'>Jeg har endnu ikke tilføjet en profil tekst, men jeg er rigtig god til at aflevere pant.</p>";
                             } else {
-                                echo "<p>" . $_SESSION['profiletext'] . "</p>";
+                                echo "<p class='profiltekst'>" . $_SESSION['profiletext'] . "</p>";
                             }                   
                             ?>
                         <h2 class="left-h2">Anmeldelser</h2>

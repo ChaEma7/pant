@@ -2,6 +2,7 @@
         session_start();
         include("mysql.php");
         $status = isset($_REQUEST['status']) ? $_REQUEST['status'] : "";
+
 ?>
 <!DOCTYPE html>
 <html lang="da">
@@ -45,7 +46,29 @@
                         </div>
                         <div class="number-input">
                             <button onclick="this.parentNode.querySelector('input[type=number]').stepDown(); return false" ></button>
-                                <input class="quantity" min="0" name="quantity" value="0" type="number">
+                                <input class="quantity" min="0" name="bags" value="0" type="number">
+                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp(); return false" class="plus"></button>
+                        </div>
+                    </section> 
+                    <section class="emballage"> 
+                        <div class="emballage-kasse">
+                            <img src="img/bagikon.png" alt="pose ikon">
+                            <p>Sække</p>
+                        </div>
+                        <div class="number-input">
+                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown(); return false" ></button>
+                                <input class="quantity" min="0" name="sacks" value="0" type="number">
+                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp(); return false" class="plus"></button>
+                        </div>
+                    </section> 
+                    <section class="emballage"> 
+                        <div class="emballage-kasse">
+                            <img class="kasseikon" src="img/kasseikon.png" alt="pose ikon">
+                            <p>Kasser</p>
+                        </div>
+                        <div class="number-input">
+                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown(); return false" ></button>
+                                <input class="quantity" min="0" name="crates" value="0" type="number">
                             <button onclick="this.parentNode.querySelector('input[type=number]').stepUp(); return false" class="plus"></button>
                         </div>
                     </section> 
@@ -55,11 +78,11 @@
                 </div>
                     <div class="afhentnings-checkbox">
                         <div>
-                            <input id="ftm" type="checkbox" name="først-til-mølle">
+                            <input class="entenEller" id="ftm" type="checkbox" name="firstPick" onclick="onlyOne(this)">
                             <label for="ftm">Først til mølle</label>
                         </div>
                         <div>
-                            <input id="ga" type="checkbox" name="Godkend-afhenter">
+                            <input class="entenEller" id="ga" type="checkbox" name="accept" onclick="onlyOne(this)">
                             <label for="ga">Godkend afhenter</label>
                         </div>
                     </div>
@@ -95,14 +118,14 @@
                     <img src="img/info-ikon.png" alt="info ikon">
                 </div>
                     <div class="afhentnings-checkbox">
-                        <div>
+                        <!-- <div>
                             <input id="no-limit" type="checkbox" name="no-limit">
                             <label for="no-limit">Ubegrænset</label>
                         </div>
                         <div>
                             <input id="limit" type="checkbox" name="limit">
                             <label for="limit">Bestemt tidsrum</label>
-                        </div>
+                        </div> -->
                     </div>
                         <section class="tidsrum">
                             <div>
@@ -145,7 +168,7 @@
             
         </section>
     </main>
-    
+    <script src="js.js"></script>
 </body>
 
 </html>

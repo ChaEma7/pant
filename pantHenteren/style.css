@@ -283,15 +283,12 @@ input[type="checkbox"] {
   width: 350px;
 }
 
-textarea {
-  border: none;
-  background-color: var(--white);
-  width: 330px;
-  border-radius: 10px;
-  padding: 10px;
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
+.profiltekst {
+  width: 350px;
+  height: auto;
+  padding: 0 20px;
 }
+
 /* ======================================= UPDATE SIDEN ======================================= */
 
 .input-beskrivelse {
@@ -367,6 +364,16 @@ textarea {
   width: 330px;
   font-size: 12px;
   font-family: "Poppins", sans-serif;
+}
+
+textarea {
+  border: none;
+  background-color: var(--white);
+  width: 330px;
+  border-radius: 10px;
+  padding: 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
 }
 
 /*----------------- popup delete accont -------------------*/
@@ -454,23 +461,21 @@ textarea {
 
 /* ======================================= CREATE TASK SIDEN ======================================= */
 
-.amount {
-  width: 110px;
+.header-info {
   display: flex;
-  justify-content: space-between;
-  align-content: center;
+  justify-content: flex-start;
+  align-items: center;
+  vertical-align: middle;
+  gap: 5px;
 }
 
-.amount span {
-  font-size: 28px;
-  cursor: pointer;
+.header-info img {
+  height: 20px;
+  margin-top: 30px;
 }
 
-.quantity {
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  text-align: center;
+.header-info .left-h2 {
+  padding: 30px 0 0 20px;
 }
 
 /*----------------- mængde knappen -------------------*/
@@ -504,8 +509,8 @@ input[type="number"]::-webkit-outer-spin-button {
   border: none;
   align-items: center;
   justify-content: center;
-  width: 3rem;
-  height: 3rem;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
   margin: 0;
   position: relative;
@@ -531,39 +536,43 @@ input[type="number"]::-webkit-outer-spin-button {
   padding: 0;
   text-align: center;
   font-size: 16px;
-}
-
-/*----------------- udbytte knappen -------------------*/
-
-/* input[type="range"] {
-  -webkit-appearance: none;
-  margin-right: 15px;
-  width: 200px;
-  height: 7px;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 5px;
-  background-image: linear-gradient(#ff4500, #ff4500);
-  background-size: 70% 100%;
-  background-repeat: no-repeat;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  background: #ff4500;
-  cursor: ew-resize;
-  box-shadow: 0 0 2px 0 #555;
-  transition: background .3s ease-in-out;
-}
-
-input[type=range]::-webkit-slider-runnable-track  {
-  -webkit-appearance: none;
-  box-shadow: none;
   border: none;
-  background: transparent;
-} */
+  background-color: var(--white);
+  border-radius: 10px;
+}
+
+.emballage {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px 20px 20px;
+}
+
+.emballage-kasse {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.emballage-kasse img {
+  height: 40px;
+}
+
+.kasseikon {
+  width: 35px;
+  padding: 0 5px;
+}
+
+/*----------------- afhentning -------------------*/
+
+.afhentnings-checkbox {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  padding: 0 20px;
+}
+
+/*----------------- udbytte -------------------*/
 
 #udbytte {
   width: 350px;
@@ -593,24 +602,4 @@ input[type=range]::-webkit-slider-runnable-track  {
 
 .udbytte-kasse-afhenter {
   flex-direction: row-reverse;
-}
-
-.header-info {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  vertical-align: middle;
-  gap: 5px;
-}
-
-.header-info img {
-  height: 20px;
-  margin-top: 30px;
-}
-
-.header-info .left-h2 {
-  padding: 30px 0 0 20px;
-}
-
-.emballage {
 }
