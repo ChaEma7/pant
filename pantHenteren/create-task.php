@@ -1,7 +1,15 @@
 <?php 
-        session_start();
+    session_start();
         include("mysql.php");
-        $status = isset($_REQUEST['status']) ? $_REQUEST['status'] : "";
+
+        /* Hvis der ikke er logget ind sendes man tilbage til index.php */
+        if(!isset($_SESSION['login'])){
+            header('location: index.php');
+            exit;
+            } else {
+                $userID = $_SESSION['login'];
+            }
+    $status = isset($_REQUEST['status']) ? $_REQUEST['status'] : "";
 ?>
 <!DOCTYPE html>
 <html lang="da">
