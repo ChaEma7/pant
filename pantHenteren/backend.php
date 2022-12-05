@@ -188,8 +188,7 @@ if(isset($_POST['createTask'])){
         $bags = $_POST['bags'];
         $sacks = $_POST['sacks'];
         $crates = $_POST['crates'];
-        $firstPick = $_POST['firstPick'];
-        $accept = $_POST['accept'];
+        $pickup = $_POST['pickup'];
         $earnings = 100 - $_POST['udbytte'];
         $timefrom = $_POST['timefrom'];
         $timeto = $_POST['timeto'];
@@ -200,10 +199,10 @@ if(isset($_POST['createTask'])){
         $creatorID = $_SESSION['login'];
    
         
-        $sql = "CALL addTask ( '$creatorID', 'NULL', '1', '$bags', '$sacks', '$crates', '$firstPick', '$accept', '$earnings', '$timefrom', '$timeto', '$adress', '$zipcode', '$city', '$note')";
+        $sql = "CALL addTask ( '$creatorID', '', '', '$bags', '$sacks', '$crates', '$pickup', '$earnings', '$timefrom', '$timeto', '$adress', '$zipcode', '$city', '$note')";
         $result = $mySQL->query($sql);
-        
-        
+        // var_dump($sql);
+        // exit;
         header("location: index.php");
         exit;                
     }

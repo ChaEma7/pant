@@ -5,7 +5,7 @@ function togglePopup() {
 
 // sørger for, at kun en chekbox i en gruppe kan være chekket
 function onlyOne(checkbox) {
-  var checkboxes = document.getElementsByClassName("firstPick", "accept");
+  var checkboxes = document.getElementsByName("pickup");
   checkboxes.forEach((item) => {
     if (item !== checkbox) item.checked = false;
   });

@@ -2,7 +2,6 @@
         session_start();
         include("mysql.php");
         $status = isset($_REQUEST['status']) ? $_REQUEST['status'] : "";
-
 ?>
 <!DOCTYPE html>
 <html lang="da">
@@ -78,11 +77,11 @@
                 </div>
                     <div class="afhentnings-checkbox">
                         <div>
-                            <input class="entenEller" id="ftm" type="checkbox" name="firstPick" onclick="onlyOne(this)">
+                            <input id="ftm" type="checkbox" name="pickup" onclick="onlyOne(this)" value="firstpick">
                             <label for="ftm">Først til mølle</label>
                         </div>
                         <div>
-                            <input class="entenEller" id="ga" type="checkbox" name="accept" onclick="onlyOne(this)">
+                            <input id="ga" type="checkbox" name="pickup" onclick="onlyOne(this)" value="accept">
                             <label for="ga">Godkend afhenter</label>
                         </div>
                     </div>
