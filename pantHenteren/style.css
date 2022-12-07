@@ -260,6 +260,52 @@ input[type="checkbox"] {
   text-align: center;
 }
 
+/* ======================================= INDEX ======================================= */
+
+.cta-section {
+  width: 350px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.index-cta {
+  height: 123px;
+  width: 123px;
+  border-radius: 20px;
+  margin: 30px 0;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
+}
+
+.index-cta figcaption {
+  margin-top: 20px;
+  font-size: 16px;
+  color: var(--lightgreen);
+  font-weight: 500;
+}
+
+.index-cta img {
+  height: 60px;
+  position: relative;
+  top: 13px;
+  margin: auto;
+}
+
+.cta-green {
+  background-color: var(--lightgreen);
+  border: 2px solid var(--lightgreen);
+}
+
+.cta-green figcaption {
+  color: var(--white);
+}
+
+.cta-white {
+  background-color: var(--white);
+  border: 2px solid var(--lightgreen);
+}
+
 /* ======================================= PROFIL SIDEN ======================================= */
 
 .profilePics {
@@ -340,13 +386,13 @@ input[type="checkbox"] {
   border: none;
   padding: 10px;
   border-radius: 10px;
-  width: 330px;
   font-size: 16px;
   font-family: "Poppins", sans-serif;
   background-color: var(--orange);
   color: var(--white);
   font-weight: 600;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
 }
 
 .nedtonet {
@@ -606,18 +652,49 @@ input[type="number"]::-webkit-outer-spin-button {
 
 /*=================================== OPGAVER =======================================*/
 
+.tasks-btn-container {
+  width: 350px;
+  height: 35px;
+  margin: auto;
+  background: #c6d4cf;
+  border-radius: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-btn {
+  width: 50%;
+  border-radius: 50px;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--white);
+}
+
 .active-btn {
-  border: 2px solid var(--red);
-  color: var(--red);
-  background-color: var(--bg);
-  box-shadow: 0px 0.5px 10px 0.5px;
+  color: var(--white);
+  background-color: var(--lightgreen);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 .yourTasks {
   display: none;
 }
 
+.yourTasks h2 {
+  text-align: left;
+}
+
+.dummytekst {
+  color: var(--texttrans);
+}
+
 /*--------- task cards ----------*/
+
+.cardTasks {
+  color: var(--text);
+}
 
 .task-cards {
   width: 350px;
@@ -639,6 +716,7 @@ input[type="number"]::-webkit-outer-spin-button {
   justify-content: flex-start;
   align-items: center;
   gap: 5px;
+  margin-top: -10px;
 }
 
 h4 {
@@ -660,7 +738,7 @@ h5 {
 .udbytte-card {
   font-weight: 800;
   font-size: 16px;
-  margin: 0 0 0 60px;
+  margin: -10px 10px 0 0;
   padding: 0;
   color: var(--darkgreen);
 }
@@ -668,10 +746,11 @@ h5 {
 .taskBottom {
   background-color: var(--lightgreen);
   border-radius: 20px;
-  margin-top: -35px;
+  margin-top: -30px;
   padding: 10px;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 30px;
 }
 
 .dato-card {
@@ -685,4 +764,122 @@ h5 {
   font-size: 12px;
   margin: 0;
   padding: 0;
+}
+
+.fed {
+  font-weight: 600;
+}
+
+.dates {
+  margin-top: -25px;
+}
+
+.quantity-box-card {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-right: 10px;
+  gap: 5px;
+}
+
+.amount-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.amount-card img {
+  width: 20px;
+}
+
+.amount-card p {
+  padding: 0 10px 0 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+/*=================================== OPGAVER DETALJE SIDEN =======================================*/
+
+.backlayerSolid {
+  background-color: #c6d4cf;
+  padding-bottom: 65px;
+}
+
+.detalje-billede {
+  margin: 15px auto -22px auto;
+  position: relative;
+  z-index: -1;
+}
+
+.detail-card {
+  padding: 30px 20px 20px 20px;
+}
+
+.detail-card h2 {
+  margin: 0;
+}
+
+.detail-card p {
+  margin: 0;
+  padding-left: 0;
+}
+
+.detail-procent {
+  color: var(--darkgreen);
+  font-weight: 800;
+}
+
+.detail-subheader {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.dato-detail {
+  font-weight: 600;
+  padding-top: 30px;
+}
+
+.date-detail {
+  margin-top: -25px;
+}
+
+.afhentningsdetaljer {
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
+  margin: auto;
+}
+
+.quantity-box-detail {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.amount-detail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.amount-detail img {
+  width: 45px;
+}
+
+.amount-detail p {
+  padding: 0 10px;
+}
+
+.creator-info {
+  margin-top: 40px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+
+.detail-card i {
+  width: 350px;
 }

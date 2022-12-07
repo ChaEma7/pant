@@ -203,9 +203,53 @@ if(isset($_POST['createTask'])){
         $result = $mySQL->query($sql);
         // var_dump($sql);
         // exit;
-        header("location: index.php");
+        header("location: tasks.php");
         exit;                
     }
     
-    
+// ==================================== BOOK OPGAVE =======================================
+
+  if(isset($_POST['bookTask'])){
+        $userID = $_SESSION['login'];
+        $taskID = $_REQUEST['taskID'];
+
+        $sql = "CALL bookTask ('$userID', '$taskID')";
+        $result = $mySQL->query($sql);
+        // var_dump($sql);
+        // exit;
+        header("location: tasks.php");
+        exit;         
+    }
+
+    // ==================================== AFSLUT OPGAVE =======================================
+
+  if(isset($_POST['taskDone'])){
+        $taskID = $_REQUEST['taskID'];
+
+        $sql = "CALL taskDone ('$taskID')";
+        $result = $mySQL->query($sql);
+        // var_dump($result);
+        // exit;
+        header("location: tasks.php");
+        exit;         
+    }
+
+// ==================================== REDIGER OPGAVE =======================================
+
+  if(isset($_POST['editTask'])){      
+        header("location: editTask.php");
+        exit;
+    }
+// ==================================== ANNULLER OPGAVE =======================================
+
+  if(isset($_POST['cancelTask'])){
+        $taskID = $_REQUEST['taskID'];
+
+        $sql = "CALL deleteTask ('$taskID')";
+        $result = $mySQL->query($sql);
+        
+        header("location: tasks.php");
+        exit;         
+    }
+
 ?>

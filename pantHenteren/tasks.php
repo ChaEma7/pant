@@ -9,21 +9,16 @@ spl_autoload_register(function($className) {
 
     include("mysql.php");
 
-
-
-
-        /* Hvis der ikke er logget ind sendes man tilbage til index.php */
-        if(!isset($_SESSION['login'])){
-            header('location: index.php');
-            exit;
-            } else {
-                $userID = $_SESSION['login'];
-            }
+    /* Hvis der ikke er logget ind sendes man tilbage til index.php */
+    if(!isset($_SESSION['login'])){
+        header('location: index.php');
+        exit;
+        } else {
+            $userID = $_SESSION['login'];
+        }
     
 
-$allTasks = "SELECT * FROM taskCard WHERE creatorid != '$userID'";
-$active = "SELECT active FROM taskCard";
-
+$allTasks = "SELECT * FROM taskCard WHERE creatorid != '$userID' AND takerid = 'NULL'";
 $opgaverTaget = "SELECT * FROM taskCard WHERE takerid = '$userID' AND active = '1'";
 $opgaverOprettet = "SELECT * FROM taskCard WHERE creatorid = '$userID' AND active = '1'";
 $opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creatorid = '$userID') AND active = '0'";
@@ -47,15 +42,16 @@ $opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creat
     <script src="https://rangeslider.js.org/assets/rangeslider.js/dist/rangeslider.min.js"></script>
 </head>
     <body>
+        <img class="baggrund" src="img/baggrundsbillede.png" alt="baggrundsbillede">
         <header class="header">
             <button class="tilbage-knap" onclick="history.back()"></button>
             <a href="index.php"><img class="header-logo" src="img/logo.png" alt="panthenter logo"></a>
             <a href="404.php"><img class="noti" src="img/notifikation-ikon.png" alt="notifikation ikon"></a>
         </header>
 
-        <section>
-            <button type="button" id="all-tasks-btn" class="active-btn">Alle opgaver</button>
-            <button type="button" id="your-tasks-btn">Dine opgaver</button>
+        <section class="tasks-btn-container">
+            <button type="button" id="all-tasks-btn" class="task-btn active-btn">Alle opgaver</button>
+            <button type="button" id="your-tasks-btn" class="task-btn">Dine opgaver</button>
         </section>
 
         <section id="allTasks" class="allTasks">
@@ -83,7 +79,7 @@ $opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creat
                             echo $dataRow->TaskCard();
                         }
                     } else {
-                        echo "<p class='dummytekst'>Du har ingen afsluttede opgaver</p>";
+                        echo "<p class='dummytekst'>Du har ikke booket nogle opgaver</p>";
                     }
                 ?>
             </section>
@@ -98,7 +94,7 @@ $opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creat
                             echo $dataRow->TaskCard();
                         }
                     } else {
-                        echo "<p class='dummytekst'>Du har ingen afsluttede opgaver</p>";
+                        echo "<p class='dummytekst'>Du har ikke oprettet nogle opgaver</p>";
                     }
                 ?>
             </section>
@@ -122,7 +118,7 @@ $opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creat
             </section>
 
         </section>
-            <br><br><br><br><br>
+            <br><br><br>
         <footer>
             <nav>
                     <a href="tasks.php"><img class="nav-ikon" src="img/liste-ikon.png" alt="opgaveliste ikon"></a>
