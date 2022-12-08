@@ -15,14 +15,19 @@ class TaskDetail {
         $response .= "<p class='detail-info'>" . $this->zipcode . " " . $this->city . "</p></div></div>";
         $response .=  "<div class='quantity-box-detail'><div class='amount-detail'>" . $this->bags . "<p>x</p><img class='taskicons' src='img/poseikon.png'></img></div>";
         $response .=  "<div class='amount-detail'>" . $this->sacks . "<p>x</p><img class='taskicons' src='img/bagikon.png'></img></div>";
-        $response .=  "<div class='amount-detail'>" . $this->crates . "<p>x</p><img class='taskicons' src='img/kasseikon.png'></img></div></div></div><div class='creator-info'>";
+        $response .=  "<div class='amount-detail'>" . $this->crates . "<p>x</p><img class='taskicons detail-icons-kasse' src='img/kasseikon.png'></img></div></div></div><div class='creator-info'>";
         if($this->profilepicture == NULL){
             $response .= "<img class='taskPics' src='img/dummy.jpg'></img>";
         } else {
             $response .= "<img class='taskPics' src='$imgPath'></img>";
         }
         $response .= "<h4>" . $this->firstname . "</h4></div>";
-        $response .= "<p><i>''" . $this->note . "''</i></p></div>";
+        if($this->note == ''){
+            $response .= "<p><i>Der er ingen note.</i></p></div>";
+        } else {
+            $response .= "<p><i>''" . $this->note . "''</i></p></div>";
+        }
+        
         
         return $response;
         }  

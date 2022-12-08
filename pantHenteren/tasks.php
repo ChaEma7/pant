@@ -18,7 +18,8 @@ spl_autoload_register(function($className) {
         }
     
 
-$allTasks = "SELECT * FROM taskCard WHERE creatorid != '$userID' AND takerid = 'NULL'";
+$allTasks = "SELECT * FROM taskCard WHERE  creatorid != '$userID'  AND takerid IS NULL";
+// $allTasks = "SELECT * FROM taskCard WHERE creatorid != '$userID'";
 $opgaverTaget = "SELECT * FROM taskCard WHERE takerid = '$userID' AND active = '1'";
 $opgaverOprettet = "SELECT * FROM taskCard WHERE creatorid = '$userID' AND active = '1'";
 $opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creatorid = '$userID') AND active = '0'";
@@ -51,7 +52,7 @@ $opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creat
 
         <section class="tasks-btn-container">
             <button type="button" id="all-tasks-btn" class="task-btn active-btn">Alle opgaver</button>
-            <button type="button" id="your-tasks-btn" class="task-btn">Dine opgaver</button>
+            <button type="button" id="your-tasks-btn" class="task-btn">Mine opgaver</button>
         </section>
 
         <section id="allTasks" class="allTasks">

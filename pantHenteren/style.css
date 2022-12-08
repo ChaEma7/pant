@@ -306,6 +306,41 @@ input[type="checkbox"] {
   border: 2px solid var(--lightgreen);
 }
 
+.index-headers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.seAllePil {
+  font-size: 20px;
+}
+
+/*--------- task cards index ----------*/
+
+.index-scrolls {
+  max-height: 170px;
+  display: flex;
+  padding: 0 20px 0 15px;
+  flex-direction: row;
+  overflow-x: auto;
+}
+
+.indexCardDiv {
+  display: flex;
+  gap: 5px;
+}
+
+.index-scrolls::-webkit-scrollbar {
+  width: 0;
+}
+
+.index-task-cards {
+  width: 300px;
+  margin: 0;
+}
+
 /* ======================================= PROFIL SIDEN ======================================= */
 
 .profilePics {
@@ -650,6 +685,43 @@ input[type="number"]::-webkit-outer-spin-button {
   flex-direction: row-reverse;
 }
 
+/*----------------- tidsrum -------------------*/
+
+.tidsrum {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  gap: 10px;
+}
+
+.timeLabel {
+  text-align: left;
+}
+
+input[type="datetime-local"] {
+  height: 40px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  font-family: "Poppins", sans-serif;
+  background-color: var(--white);
+}
+
+/* ----------------- Info overlays -------------------
+.info-overlay {
+  position: absolute;
+  z-index: 1;
+  margin: 0 20px;
+  width: 350px;
+  background-color: var(--white);
+  border-radius: 20px;
+  display: none;
+}
+
+.info-overlay {
+  display: block;
+} */
+
 /*=================================== OPGAVER =======================================*/
 
 .tasks-btn-container {
@@ -790,11 +862,16 @@ h5 {
 
 .amount-card img {
   width: 20px;
+  margin: auto;
+}
+
+.taskicons-kasse {
+  width: 18px !important;
 }
 
 .amount-card p {
   padding: 0 10px 0 0;
-  margin: 0;
+  margin: 0 auto;
   font-size: 14px;
 }
 
@@ -868,6 +945,10 @@ h5 {
   width: 45px;
 }
 
+.detail-icons-kasse {
+  width: 40px !important;
+}
+
 .amount-detail p {
   padding: 0 10px;
 }
@@ -882,4 +963,9 @@ h5 {
 
 .detail-card i {
   width: 350px;
+}
+
+.opgave-afsluttet {
+  text-align: center;
+  color: var(--texttrans);
 }

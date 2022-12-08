@@ -15,7 +15,8 @@
                 $userID = $_SESSION['login'];
             }
 $userID = $_SESSION['login'];
-$allTasks = "SELECT * FROM taskCard WHERE creatorid != '$userID' AND takerid = 'NULL'";
+$allTasks = "SELECT * FROM taskCard WHERE  creatorid != '$userID' AND takerid IS NULL ORDER BY id ASC LIMIT 4";
+$lastChance = "SELECT * FROM taskCard WHERE creatorid != '$userID' AND takerid IS NULL ORDER BY dateto ASC LIMIT 4";
 ?>
 
 <!DOCTYPE html>
@@ -53,15 +54,30 @@ $allTasks = "SELECT * FROM taskCard WHERE creatorid != '$userID' AND takerid = '
                         </a>
                 </section>
 
-                <section class="nearyou">
+                <section class="index-kategorier">
                         <section class="index-headers">
-                                <h2>I nærheden af dig</h2>
-                                <a href="tasks.php">se alle <b class="se alle">&rsaquo;</b></a>
+                                <h2>Nyeste opgaver</h2>
+                                <a href="tasks.php">se alle <b class="seAllePil">&rsaquo;</b></a>
                         </section>
                         <section class="index-scrolls">
                                 <?php 
                                         $showResult = $mySQL->query($allTasks);
-                                        while($dataRow = $showResult->fetch_object("Task")) {
+                                        while($dataRow = $showResult->fetch_object("IndexTaskCards")) {
+                                        echo $dataRow->TaskCard();
+                                        }
+                                ?>
+                        </section>
+                </section>
+
+                <section class="index-kategorier">
+                        <section class="index-headers">
+                                <h2>Hent inden det er for sent</h2>
+                                <a href="tasks.php">se alle <b class="seAllePil">&rsaquo;</b></a>
+                        </section>
+                        <section class="index-scrolls">
+                                <?php 
+                                        $showResult = $mySQL->query($lastChance);
+                                        while($dataRow = $showResult->fetch_object("IndexTaskCards")) {
                                         echo $dataRow->TaskCard();
                                         }
                                 ?>

@@ -135,11 +135,11 @@
                         </div> -->
                     </div>
                         <section class="tidsrum">
-                            <div>
-                                <label for="timefrom">Afhentes fra</label>
+                            <div class="timeLabel">
+                                <label  for="timefrom">Afhentes fra</label>
                                 <input type="datetime-local" id="timefrom" name="timefrom">
                             </div>
-                            <div>
+                            <div class="timeLabel">
                                 <label for="timeto">Afhentes til</label>
                                 <input type="datetime-local" id="timeto" name="timeto">
                             </div>

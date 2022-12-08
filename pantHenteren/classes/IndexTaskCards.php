@@ -1,10 +1,10 @@
 <?php 
 
-class Task {
+class IndexTaskCards {
     public function TaskCard() {
         $imgPath = "original/" . $this->profilepicture;
 
-        $response = "<a class='cardTasks' href='task-detail.php?id=$this->id'><div class='task-cards'><div class='taskTop'><div class='topdiv'>";
+        $response = "<div class='indexCardDiv'><a class='cardTasks indexCardTasks' href='task-detail.php?id=$this->id'><div class='index-task-cards'><div class='taskTop'><div class='topdiv'>";
         if($this->profilepicture == NULL){
             $response .= "<img class='taskPics' src='img/dummy.jpg'></img>";
         } else {
@@ -18,7 +18,7 @@ class Task {
         $response .= "<p class='dato'><b class='fed'>Til</b> " . $this->dateto . "</p></div></div>";
         $response .=  "<div class='quantity-box-card'><div class='amount-card'><p>" . $this->bags . "</p><p>x</p><img class='taskicons' src='img/poseikon.png'></img></div>";
         $response .=  "<div class='amount-card'><p>" . $this->sacks . "</p><p>x</p><img class='taskicons' src='img/bagikon.png'></img></div>";
-        $response .=  "<div class='amount-card'><p>" . $this->crates . "</p><p>x</p><img class='taskicons taskicons-kasse' src='img/kasseikon.png'></img></div></div></div></a>";
+        $response .=  "<div class='amount-card'><p>" . $this->crates . "</p><p>x</p><img class='taskicons taskicons-kasse' src='img/kasseikon.png'></img></div></div></div></a></div>";
         return $response;
         }  
 }

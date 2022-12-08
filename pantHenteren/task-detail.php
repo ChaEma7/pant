@@ -21,6 +21,7 @@ $taskID = isset($_REQUEST['id']) ? $_REQUEST['id'] : "";
 $allData = "SELECT * FROM taskCard WHERE id = '$taskID'";
 $takerIDquery = "SELECT takerid FROM taskCard WHERE id = '$taskID'";
 $creatorIDquery = "SELECT creatorid FROM taskCard WHERE id = '$taskID'";
+$activeQuery = "SELECT active FROM taskCard WHERE id = '$taskID'";
 $userID = $_SESSION['login'];
 
 // Bruges i if funktionen, som bestemmer hvilken knap, der skal fremvises alt efter om du er opgave opretter eller tager
@@ -28,6 +29,8 @@ $result = $mySQL->query($takerIDquery);
 $takerID = $result->fetch_object()->takerid;
 $result = $mySQL->query($creatorIDquery);
 $creatorID = $result->fetch_object()->creatorid;
+$result = $mySQL->query($activeQuery);
+$activeStatus = $result->fetch_object()->active;
 
 ?>
 <!DOCTYPE html>
@@ -61,6 +64,9 @@ $creatorID = $result->fetch_object()->creatorid;
         <section class="backlayer backlayerSolid">
 
                 <?php 
+                // var_dump($activeStatus);
+                // exit;
+
                     $showResult = $mySQL->query($allData);
 
                     if($showResult->num_rows > 0) {
@@ -73,10 +79,8 @@ $creatorID = $result->fetch_object()->creatorid;
                     
                     // Bestemmer hvilken knap der skal fremvises alt efter om opgaven af aktiv eller taget
                     // og hvis du har oprettet opgaven
-                    if($takerID == $userID) {
-                        echo "<form  id='book-form' method='post' action='backend.php?taskID=$taskID'>
-                            <input class='btn' type='submit' name='taskDone' value='Afslut opgave'>
-                        </form>";
+                    if($activeStatus != '1') {
+                        echo "<p class='opgave-afsluttet'>Opgaven er afsluttet</p>";
                     } else if($creatorID == $userID){
                         echo "<form id='book-form' method='post' action='backend.php?taskID=$taskID'>
                                 <input class='btn' type='submit' name='editTask' value='Redigér opgave'>
@@ -94,6 +98,10 @@ $creatorID = $result->fetch_object()->creatorid;
                                 </section>
                             </section>
 
+                        </form>";
+                    } else if($takerID == $userID) {
+                        echo "<form  id='book-form' method='post' action='backend.php?taskID=$taskID'>
+                            <input class='btn' type='submit' name='taskDone' value='Afslut opgave'>
                         </form>";
                     } else {
                         echo "<form id='book-form' method='post' action='backend.php?taskID=$taskID'>
