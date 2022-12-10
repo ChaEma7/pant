@@ -40,6 +40,7 @@ body {
 .backlayer {
   background-color: var(--palegreentran);
   border-radius: 50px 50px 0 0;
+  min-height: 470px;
 }
 
 h1 {
@@ -107,6 +108,7 @@ a {
 
 .noti {
   height: 30px;
+  opacity: 0;
 }
 
 .tilbage-knap {
@@ -156,6 +158,15 @@ nav {
 .add-ikon {
   height: 90px;
   margin-top: -30px;
+}
+
+.fejlmeddelse {
+  font-size: 14px;
+  color: rgb(206, 42, 42);
+}
+
+.brugt-email-link {
+  font-size: 14px;
 }
 
 /* ======================================= LOG IND SIDEN ======================================= */
@@ -354,6 +365,10 @@ input[type="checkbox"] {
   margin: -20px auto 20px auto;
 }
 
+.logout {
+  padding-bottom: 110px;
+}
+
 .logout-ikon {
   height: 20px;
   vertical-align: middle;
@@ -366,7 +381,7 @@ input[type="checkbox"] {
 
 .profiltekst {
   width: 350px;
-  height: auto;
+  min-height: 250px;
   padding: 0 20px;
 }
 
@@ -457,7 +472,7 @@ textarea {
   font-size: 16px;
 }
 
-/*----------------- popup delete accont -------------------*/
+/*----------------- popup -------------------*/
 
 .popup-overlay {
   position: fixed;
@@ -700,11 +715,12 @@ input[type="number"]::-webkit-outer-spin-button {
 
 input[type="datetime-local"] {
   height: 40px;
-  width: 100%;
+  width: 153px;
   border: none;
   border-radius: 10px;
   font-family: "Poppins", sans-serif;
   background-color: var(--white);
+  padding: 0 10px;
 }
 
 /* ----------------- Info overlays -------------------
@@ -742,16 +758,14 @@ input[type="datetime-local"] {
   font-size: 16px;
   font-weight: 600;
   color: var(--white);
+  align-self: center;
 }
 
 .active-btn {
   color: var(--white);
+  padding: 5px 0;
   background-color: var(--lightgreen);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
-
-.yourTasks {
-  display: none;
 }
 
 .yourTasks h2 {
@@ -968,4 +982,28 @@ h5 {
 .opgave-afsluttet {
   text-align: center;
   color: var(--texttrans);
+}
+
+/*--------- annuller og frigiv opgave ----------*/
+.release-btn {
+  margin-top: -5px;
+}
+
+.release-h2 {
+  margin-top: 55px !important;
+}
+
+/*--------- popup book ----------*/
+
+.popup-content-book {
+  height: 300px;
+}
+
+.book-btn {
+  margin-top: -5px;
+}
+
+.popup-text {
+  padding: 0;
+  text-align: center;
 }

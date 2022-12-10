@@ -24,23 +24,6 @@
         <p>Vær med til at hjælpe dig selv, miljøet og andre!</p>
 
          <section class="login-container backlayer">
-                <div class="quikLogin">
-                    <a href="">
-                        <figure class="socialLogin-btn">
-                            <img src="img/google-ikon.png" alt="google log ind">
-                            <figcaption>Opret med Google</figcaption>
-                        </figure>
-                    </a>
-                    <a href="">
-                        <figure class="socialLogin-btn">
-                            <img src="img/facebook-ikon-rund.png" alt="facebook log ind">
-                            <figcaption>Opret med Facebook</figcaption>
-                        </figure>
-                    </a>
-                </div>
-                <div>
-                    <p class="opdeler">eller opret med mail</p>
-                </div>
                 <form method="post" action="backend.php" enctype="multipart/form-data">
                     <p class="input-beskrivelse">Navn<strong>*</strong></p>
                         <input class="text-input" type="text" name="firstname" placeholder="Fornavn" required>
@@ -59,7 +42,7 @@
                         <?php
                         if($status == "userTaken") {
                             // udskriver status fra url'en
-                            echo "Denne email er allerede brugt";
+                            echo "<p class='fejlmeddelse'>Denne email er allerede brugt. <a class='brugt-email-link' href='login.php'>Log ind</a></p>";
                         }
                         ?>
                     <p class="input-beskrivelse">Kodeord<strong>*</strong></p>
@@ -69,7 +52,11 @@
                         <?php
                         if($status == "passwordTooShort") {
                             // udskriver status fra url'en
-                            echo "Koden skal være minimum 8 tegn lang";
+                            echo "<p class='fejlmeddelse'>Koden skal være minimum 8 tegn lang</p>";
+                        }
+                        if($status == "passwordCreateFail") {
+                            // udskriver status fra url'en
+                            echo "<p class='fejlmeddelse'>Kodeord stemmer ikke overens</p>";
                         }
                         ?>
                     <br>
@@ -77,13 +64,7 @@
                     <br>
                     <input class="btn" type="submit" name="createUser" value="Opret konto">
                 </form>
-                <?php
-                if($status == "passwordCreateFail") {
-                    // udskriver status fra url'en
-                    echo "Kodeord stemmer ikke overens";
-                }
                 
-                ?>
                 <p class="center">Har du allerede en bruger? <a href="login.php">Log ind</a></p>
                 <br>
            

@@ -10,6 +10,26 @@
                 $userID = $_SESSION['login'];
             }
     $status = isset($_REQUEST['status']) ? $_REQUEST['status'] : "";
+    $taskID = isset($_REQUEST['id']) ? $_REQUEST['id'] : "";
+
+    $sql = "SELECT * FROM taskCard WHERE creatorid = '$userID' AND id = '$taskID'";
+            $response = $mySQL->query($sql);
+            $task = $response->fetch_object();
+
+            $_SESSION['bags'] = $task->bags;
+            $_SESSION['sacks'] = $task->sacks;
+            $_SESSION['crates'] = $task->crates;
+            $_SESSION['pickup'] = $task->pickup;
+            $_SESSION['earnings'] = $task->earnings;
+            $_SESSION['datefrom'] = $task->datefrom;
+            $_SESSION['dateto'] = $task->dateto;
+            $_SESSION['adress'] = $task->adress;
+            $_SESSION['zipcode'] = $task->zipcode;
+            $_SESSION['city'] = $task->city;
+            $_SESSION['note'] = $task->note;
+
+            $pickup = $_SESSION['pickup'];
+            $earnings = $_SESSION['earnings'];
 ?>
 <!DOCTYPE html>
 <html lang="da">
@@ -40,8 +60,8 @@
         
         
         <section class="backlayer">
-            <h1>Opret opgave</h1>
-            <form method="post" action="backend.php" enctype="multipart/form-data">
+            <h1>Redigér opgave</h1>
+            <form method="post" action="backend.php?taskID=$taskID" enctype="multipart/form-data">
                 <div class="header-info">
                     <h2 class="left-h2">Angiv mængde</h2>
                     <img src="img/info-ikon.png" alt="info ikon">
@@ -53,7 +73,7 @@
                         </div>
                         <div class="number-input">
                             <button onclick="this.parentNode.querySelector('input[type=number]').stepDown(); return false" ></button>
-                                <input class="quantity" min="0" name="bags" value="0" type="number">
+                                <input class="quantity" min="0" name="bags" value="<?php echo $_SESSION['bags']?>" type="number">
                             <button onclick="this.parentNode.querySelector('input[type=number]').stepUp(); return false" class="plus"></button>
                         </div>
                     </section> 
@@ -64,7 +84,7 @@
                         </div>
                         <div class="number-input">
                             <button onclick="this.parentNode.querySelector('input[type=number]').stepDown(); return false" ></button>
-                                <input class="quantity" min="0" name="sacks" value="0" type="number">
+                                <input class="quantity" min="0" name="sacks" value="<?php echo $_SESSION['sacks']?>" type="number">
                             <button onclick="this.parentNode.querySelector('input[type=number]').stepUp(); return false" class="plus"></button>
                         </div>
                     </section> 
@@ -75,7 +95,7 @@
                         </div>
                         <div class="number-input">
                             <button onclick="this.parentNode.querySelector('input[type=number]').stepDown(); return false" ></button>
-                                <input class="quantity" min="0" name="crates" value="0" type="number">
+                                <input class="quantity" min="0" name="crates" value="<?php echo $_SESSION['crates']?>" type="number">
                             <button onclick="this.parentNode.querySelector('input[type=number]').stepUp(); return false" class="plus"></button>
                         </div>
                     </section> 
@@ -84,14 +104,31 @@
                     <img src="img/info-ikon.png" alt="info ikon">
                 </div>
                     <div class="afhentnings-checkbox">
-                        <div>
-                            <input id="ftm" type="checkbox" name="pickup" onclick="onlyOne(this)" value="firstpick">
-                            <label for="ftm">Først til mølle</label>
-                        </div>
-                        <div>
-                            <input id="ga" type="checkbox" name="pickup" onclick="onlyOne(this)" value="accept">
-                            <label for="ga">Godkend afhenter</label>
-                        </div>
+                        <?php
+                        if($pickup == 'firstpick'){
+                            echo    
+                            "<div>
+                                <input id='ftm' type='checkbox' name='pickup' onclick='onlyOne(this)' value='firstpick' checked>
+                                <label for='ftm'>Først til mølle</label>
+                            </div>
+                            <div>
+                                <input id='ga' type='checkbox' name='pickup' onclick='onlyOne(this)' value='accept'>
+                                <label for='ga'>Godkend afhenter</label>
+                            </div>";
+                        } else {
+                           echo
+                           "<div>
+                                <input id='ftm' type='checkbox' name='pickup' onclick='onlyOne(this)' value='firstpick'>
+                                <label for='ftm'>Først til mølle</label>
+                            </div>
+                            <div>
+                                <input id='ga' type='checkbox' name='pickup' onclick='onlyOne(this)' value='accept' checked>
+                                <label for='ga'>Godkend afhenter</label>
+                            </div>"; 
+                        }
+                        ?>
+                        
+                        
                     </div>
 
                 <div class="header-info">
@@ -99,15 +136,15 @@
                     <img src="img/info-ikon.png" alt="info ikon">
                 </div>
                     <div>
-                        <input type="range" id="udbytte" name="udbytte" min="0" max="100" value="50" step="5" oninput="this.nextElementSibling.value = this.value">
+                        <input type="range" id="udbytte" name="udbytte" min="0" max="100" value="<?php echo $_SESSION['earnings']?>" step="5" oninput="this.nextElementSibling.value = this.value">
                         <div class="udbytte-container">
                             <div class="udbytte-kasse">
                                 <p>Dig</p>
-                                <div><output class="outputGiver">50</output>%</div>
+                                <div><output class="outputGiver"><?php echo $earnings?></output>%</div>
                             </div>
                             <div class="udbytte-kasse udbytte-kasse-afhenter">
                                 <p>Afhenter</p>
-                                <div><output class="outputAfhenter">50 </output>%</div>
+                                <div><output class="outputAfhenter"><?php echo 100 - $earnings?></output>%</div>
                             </div>
                         </div>
                         <script>
@@ -136,12 +173,12 @@
                     </div>
                         <section class="tidsrum">
                             <div class="timeLabel">
-                                <label  for="timefrom">Afhentes fra</label>
-                                <input type="datetime-local" id="timefrom" name="timefrom" required>
+                                <label for="timefrom">Afhentes fra</label>
+                                <input type="datetime-local" id="timefrom" name="timefrom" value="<?php echo $_SESSION['datefrom']?>">
                             </div>
                             <div class="timeLabel">
                                 <label for="timeto">Afhentes til</label>
-                                <input type="datetime-local" id="timeto" name="timeto" required>
+                                <input type="datetime-local" id="timeto" name="timeto" value="<?php echo $_SESSION['dateto']?>">
                             </div>
                             
                         </section>
@@ -151,7 +188,7 @@
                     <img src="img/info-ikon.png" alt="info ikon">
                 </div>
                     <p class="input-beskrivelse">Adresse</p>
-                    <input class="update-input" type="text" name="adress" placeholder="Adresse" required>
+                    <input class="update-input" type="text" name="adress" value="<?php echo $_SESSION['adress']?>" required>
                     <div class="grid-input">
                         <div class="zipcode">
                             <p class="input-beskrivelse">Postnr.</p>
@@ -167,9 +204,9 @@
                     <h2 class="left-h2">Note</h2>
                     <img src="img/info-ikon.png" alt="info ikon">
                 </div>
-                    <textarea name="note" id="note" cols="30" rows="5" placeholder=""></textarea>
+                    <textarea name="note" id="note" cols="30" rows="5" placeholder=""><?php echo $_SESSION['note']?></textarea>
 
-                <input class="btn" type="submit" name="createTask" value="Opret opgave">
+                <input class="btn" type="submit" name="updateTask" value="Gem ændringer">
 
             </form>
             

@@ -82,6 +82,27 @@
             if($passwordVerify == true){
                 // token gives
                 $_SESSION['login'] = $user->id;
+            
+                /*  selecter betemst data fra pantUsers hvor id'et stemmer overens med token
+                al data fetches og ligges ind i sessions */
+                $userID = $user->id;
+                $sql = "SELECT * FROM pantUsers WHERE id = '$userID'";
+                $response = $mySQL->query($sql);
+                $user = $response->fetch_object();
+
+                $_SESSION['firstname'] = $user->firstname;
+                $_SESSION['zipcode'] = $user->zipcode;
+                $_SESSION['city'] = $user->city;
+                $_SESSION['profilepicture'] = $user->profilepicture;
+                $_SESSION['profiletext'] = $user->profiletext;
+
+                $sql = "SELECT email FROM pantLogin WHERE id = '$userID'";
+                $response = $mySQL->query($sql);
+                $user = $response->fetch_object();
+
+                $_SESSION['email'] = $user->email;
+
+
                 // der bliver logget ind og sendes til profile.php
                 header("location: index.php");
             } else {
@@ -203,7 +224,7 @@ if(isset($_POST['createTask'])){
         $result = $mySQL->query($sql);
         // var_dump($sql);
         // exit;
-        header("location: tasks.php");
+        header("location: your-tasks.php");
         exit;                
     }
     
@@ -217,7 +238,20 @@ if(isset($_POST['createTask'])){
         $result = $mySQL->query($sql);
         // var_dump($sql);
         // exit;
-        header("location: tasks.php");
+        header("location: your-tasks.php");
+        exit;         
+    }
+
+// ==================================== ANULLER OPGAVE =======================================
+
+  if(isset($_POST['releaseTask'])){
+        $taskID = $_REQUEST['taskID'];
+
+        $sql = "CALL releaseTask ('$taskID')";
+        $result = $mySQL->query($sql);
+        // var_dump($sql);
+        // exit;
+        header("location: your-tasks.php");
         exit;         
     }
 
@@ -230,16 +264,100 @@ if(isset($_POST['createTask'])){
         $result = $mySQL->query($sql);
         // var_dump($result);
         // exit;
-        header("location: tasks.php");
+        header("location: your-tasks.php");
         exit;         
     }
 
 // ==================================== REDIGER OPGAVE =======================================
 
-  if(isset($_POST['editTask'])){      
-        header("location: editTask.php");
+  if(isset($_POST['editTask'])){  
+        $taskID = $_REQUEST['taskID'];
+        $userID = $_SESSION['login'];
+
+        header("location: edit-task.php?id=$taskID");
         exit;
     }
+
+  if(isset($_POST['updateTask'])){
+        $taskID = $_REQUEST['taskID'];
+        
+        $inputbags = $_POST['bags'];
+        $inputsacks = $_POST['sacks'];
+        $inputcrates = $_POST['crates'];
+        $inputpickup = $_POST['pickup'];
+        $inputearnings = 100 - $_POST['udbytte'];
+        $inputdatefrom = $_POST['timefrom'];
+        $inputdateto = $_POST['timeto'];
+        $inputadress = $_POST['adress'];
+        $inputzipcode = $_POST['zipcode'];
+        $inputcity = $_POST['city'];
+        $inputnote = $_POST['note'];
+
+        if($inputbags != ""){
+            $sql = "UPDATE pantTask SET bags = '$inputbags' WHERE id = '$taskID' ";
+            $result = $mySQL->query($sql);
+        }
+
+        if($inputsacks != ""){
+            $sql = "UPDATE pantTask SET sacks = '$inputsacks' WHERE id = '$taskID' ";
+            $result = $mySQL->query($sql);
+        }
+
+        if($inputcrates != ""){
+            $sql = "UPDATE pantTask SET crates = '$inputcrates' WHERE id = '$taskID' ";
+            $result = $mySQL->query($sql);
+        }
+
+        if($inputpickup != ""){
+            $sql = "UPDATE pantTask SET pickup = '$inputpickup' WHERE id = '$taskID' ";
+            $result = $mySQL->query($sql);
+        }
+
+        if($inputearnings != ""){
+            $sql = "UPDATE pantTask SET earnings = '$inputearnings' WHERE id = '$taskID' ";
+            $result = $mySQL->query($sql);
+        }
+
+        if($inputdatefrom != ""){
+            $sql = "UPDATE pantTask SET datefrom = '$inputdatefrom' WHERE id = '$taskID' ";
+            $result = $mySQL->query($sql);
+        }
+
+        if($inputdateto != ""){
+            $sql = "UPDATE pantTask SET dateto = '$inputdateto' WHERE id = '$taskID' ";
+            $result = $mySQL->query($sql);
+        }
+
+        if($inputadress != ""){
+            $sql = "UPDATE pantTask SET adress = '$inputadress' WHERE id = '$taskID' ";
+            $result = $mySQL->query($sql);
+        }
+
+        if($inputzipcode != ""){
+            $sql = "UPDATE pantTask SET zipcode = '$inputzipcode' WHERE id = '$taskID' ";
+            $result = $mySQL->query($sql);
+        }
+
+        if($inputcity != ""){
+            $sql = "UPDATE pantTask SET city = '$inputcity' WHERE id = '$taskID' ";
+            $result = $mySQL->query($sql);
+        }
+
+        if($inputnote != ""){
+            $sql = "UPDATE pantTask SET note = '$inputnote' WHERE id = '$taskID' ";
+            $result = $mySQL->query($sql);
+        }
+
+        // var_dump($result);
+        // exit;
+
+        header("location: task-detail.php?id=$taskID");
+        exit;
+    }
+
+    
+
+
 // ==================================== ANNULLER OPGAVE =======================================
 
   if(isset($_POST['cancelTask'])){
@@ -248,7 +366,7 @@ if(isset($_POST['createTask'])){
         $sql = "CALL deleteTask ('$taskID')";
         $result = $mySQL->query($sql);
         
-        header("location: tasks.php");
+        header("location: your-tasks.php");
         exit;         
     }
 

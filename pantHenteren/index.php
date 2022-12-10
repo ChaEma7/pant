@@ -35,7 +35,7 @@ $lastChance = "SELECT * FROM taskCard WHERE creatorid != '$userID' AND takerid I
         <header class="header">
                 <button class="tilbage-knap" onclick="history.back()"></button>
                 <a href="index.php"><img class="header-logo" src="img/logo.png" alt="panthenter logo"></a>
-                <a href="404.php"><img class="noti" src="img/notifikation-ikon.png" alt="notifikation ikon"></a>
+                <a href=""><img class="noti" src="img/notifikation-ikon.png" alt="notifikation ikon"></a>
         </header>
         <main> 
                 <section class="cta-section">

@@ -4,12 +4,15 @@ class TaskDetail {
     public function TaskDetail() {
         $imgPath = "original/" . $this->profilepicture;
 
+        $dateFrom = date("d/m - H:i", strtotime($this->datefrom));
+        $dateTo = date("d/m - H:i", strtotime($this->dateto));
+
         $response = "<div class='detail-card'>";
         $response .= "<h2>Giver <b class='detail-procent'>" . $this->earnings ."%</b> udbtte</h2>";
         $response .= "<p class='detail-subheader'>ved afhentning af pant</p>";
         $response .= "<div class='afhentningsdetaljer'><div><p class='dato-detail'>Afhentning</p><br>";
-        $response .= "<div class='date-detail'><p class='detail-info'><b class='fed'>Fra</b> " . $this->datefrom . "</p>";
-        $response .= "<p class='detail-info'><b class='fed'>Til</b> " . $this->dateto . "</p></div>";
+        $response .= "<div class='date-detail'><p class='detail-info'><b class='fed'>Fra</b> " . $dateFrom . "</p>";
+        $response .= "<p class='detail-info'><b class='fed'>Til</b> " . $dateTo . "</p></div>";
         $response .= "<p class='dato-detail'>Adresse</p><br>";
         $response .= "<div class='date-detail'><p class='detail-info'>" . $this->adress . "</p>";
         $response .= "<p class='detail-info'>" . $this->zipcode . " " . $this->city . "</p></div></div>";

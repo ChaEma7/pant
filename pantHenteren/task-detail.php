@@ -54,7 +54,7 @@ $activeStatus = $result->fetch_object()->active;
         <header class="header">
             <button class="tilbage-knap" onclick="history.back()"></button>
             <a href="index.php"><img class="header-logo" src="img/logo.png" alt="panthenter logo"></a>
-            <a href="404.php"><img class="noti" src="img/notifikation-ikon.png" alt="notifikation ikon"></a>
+            <a href=""><img class="noti" src="img/notifikation-ikon.png" alt="notifikation ikon"></a>
         </header>
 
         <section class="detail-billede">
@@ -102,10 +102,38 @@ $activeStatus = $result->fetch_object()->active;
                     } else if($takerID == $userID) {
                         echo "<form  id='book-form' method='post' action='backend.php?taskID=$taskID'>
                             <input class='btn' type='submit' name='taskDone' value='Afslut opgave'>
+                            <button class='slet-btn nedtonet' onclick='togglePopupReleaseTask(); return false'>Annuller og frigiv opgave</button>
+
+                            <section class='popup' id='popup-frigiv'>
+                                <section class='popup-overlay'></section>
+                                <section class='popup-content'>
+                                    <section class='close-btn' onclick='togglePopupReleaseTask() '><img src='img/luk-ikon.png' alt='luk ikon'></section>
+                                    <h2 class='release-h2'>Er du sikker på, at du vil annullere opgaven?</h2>
+                                    <section class='popup-btns'>
+                                        <input class='btn release-btn' type='submit' name='releaseTask' value='Annuller og frigiv opgave'>
+                                    </section>
+                                </section>
+                            </section>
+
                         </form>";
                     } else {
                         echo "<form id='book-form' method='post' action='backend.php?taskID=$taskID'>
-                            <input class='btn' type='submit' name='bookTask' value='Book Opgave'>
+                            <button class='btn' onclick='togglePopupBookTask(); return false'>Book opgave</button>
+                            
+
+                            <section class='popup' id='popup-book'>
+                                <section class='popup-overlay'></section>
+                                <section class='popup-content popup-content-book'>
+                                    <section class='close-btn' onclick='togglePopupBookTask()'><img src='img/luk-ikon.png' alt='luk ikon'></section>
+                                    <h2 class='release-h2'>Er du sikker på, at du vil booke opgaven?</h2>
+                                    <p class='popup-text'>Når du har bekræftet bookingen, kan du finde opgaven under ''Mine opgaver''.</p>
+                                    <section class='popup-btns'>
+                                        <input class='btn book-btn' type='submit' name='bookTask' value='Bekræft booking'>
+                                    </section>
+                                </section>
+                            </section>
+
+                            
                         </form>";
                     } 
                 ?>

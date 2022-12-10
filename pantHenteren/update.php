@@ -7,27 +7,27 @@
             // Hvis der ikke er logget ind, sendes man tilbage til index.php
             header('location: login.php');
             exit;
-            } else {
-                $userID = $_SESSION['login'];
+        } else {
+            $userID = $_SESSION['login'];
 
-                /*  selecter betemst data fra pantUsers hvor id'et stemmer overens med token
-                    al data fetches og ligges ind i sessions */
-                $sql = "SELECT * FROM pantUsers WHERE id = '$userID'";
-                $response = $mySQL->query($sql);
-                $user = $response->fetch_object();
+            /*  selecter betemst data fra pantUsers hvor id'et stemmer overens med token
+                al data fetches og ligges ind i sessions */
+            $sql = "SELECT * FROM pantUsers WHERE id = '$userID'";
+            $response = $mySQL->query($sql);
+            $user = $response->fetch_object();
 
-                $_SESSION['firstname'] = $user->firstname;
-                $_SESSION['zipcode'] = $user->zipcode;
-                $_SESSION['city'] = $user->city;
-                $_SESSION['profilepicture'] = $user->profilepicture;
-                $_SESSION['profiletext'] = $user->profiletext;
+            $_SESSION['firstname'] = $user->firstname;
+            $_SESSION['zipcode'] = $user->zipcode;
+            $_SESSION['city'] = $user->city;
+            $_SESSION['profilepicture'] = $user->profilepicture;
+            $_SESSION['profiletext'] = $user->profiletext;
 
-                $sql = "SELECT email FROM pantLogin WHERE id = '$userID'";
-                $response = $mySQL->query($sql);
-                $user = $response->fetch_object();
+            $sql = "SELECT email FROM pantLogin WHERE id = '$userID'";
+            $response = $mySQL->query($sql);
+            $user = $response->fetch_object();
 
-                $_SESSION['email'] = $user->email;
-            }
+            $_SESSION['email'] = $user->email;
+        }
 ?>
 <!DOCTYPE html>
 <html lang="da">

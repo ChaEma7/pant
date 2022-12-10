@@ -40,7 +40,7 @@
     <header class="header">
         <button class="tilbage-knap" onclick="history.back()"></button>
         <a href="index.php"><img class="header-logo" src="img/logo.png" alt="panthenter logo"></a>
-        <a href="404.php"><img class="noti" src="img/notifikation-ikon.png" alt="notifikation ikon"></a>
+        <a href=""><img class="noti" src="img/notifikation-ikon.png" alt="notifikation ikon"></a>
     </header>
     <img class="baggrund" src="img/baggrundsbillede.png" alt="baggrundsbillede">
     <main>
@@ -68,14 +68,12 @@
                                 echo "<p class='profiltekst'>" . $_SESSION['profiletext'] . "</p>";
                             }                   
                             ?>
-                        <h2 class="left-h2">Anmeldelser</h2>
+                        
                         <section class="logout">
                             <a href="logout.php"><img class="logout-ikon" src="img/logout-ikon.png" alt="logout ikon"> Log af</a>
                         </section>
 
-                        <section>
-                            <br><br><br><br><br>
-                        </section>
+                        
                     </div>
             </section> 
 

@@ -25,52 +25,28 @@
         <p>Måske en fed sætning her!</p>
 
         <section class="login-container backlayer">
-                <div class="quikLogin">
-                    <a href="">
-                        <figure class="socialLogin-btn">
-                            <img src="img/google-ikon.png" alt="google log ind">
-                            <figcaption>Log ind med Google</figcaption>
-                        </figure>
-                    </a>
-                    <a href="">
-                        <figure class="socialLogin-btn">
-                            <img src="img/facebook-ikon-rund.png" alt="facebook log ind">
-                            <figcaption>Log ind med Facebook</figcaption>
-                        </figure>
-                    </a>
-                </div>
-                <div>
-                    <p class="opdeler">eller log ind med mail</p>
-                </div>
+                
                 <form  method="post" action="backend.php">
                     <p class="input-beskrivelse">Email<strong>*</strong></p>
                         <input class="text-input" type="text" name="userEmail" placeholder="mail@mail.com" required>
+                        <?php
+                            if($status == "usernameFail") {
+                                // udskriver status fra url'en
+                                echo "<p class='fejlmeddelse'>Ugyldig e-mail</p>";
+                            }
+                        ?>
                     <p class="input-beskrivelse">Kodeord<strong>*</strong></p>
                         <input class="text-input" type="password" name="password" placeholder="Min. 8 tegn" required>
-                    <div class="kode-box">
-                        <div>
-                            <input id="husk-input" type="checkbox" name="husk" >
-                            <label for="husk-input">Husk mig</label>
-                        </div>
-                        <a href="">Glemt kodeord?</a>
-                    </div>
+                        <?php
+                            if($status == "passwordFail") {
+                                // udskriver status fra url'en
+                                echo "<p class='fejlmeddelse'>Forkert kodeord</p>";
+                        }?>
+                   
                         <input class="btn" type="submit" name="login" value="Log ind">
                 </form>
                 <p class="center">Ikke oprettet endnu? <a href="create.php">Opret konto</a></p>
-           
-            
-        </section>
-        <section>
-            <?php
-                if($status == "passwordFail") {
-                    // udskriver status fra url'en
-                    echo "Password incorrect";
-                }
-                if($status == "usernameFail") {
-                    // udskriver status fra url'en
-                    echo "Username incorrect";
-                }
-            ?>
+                <br>
         </section>
     </main>
 </body>

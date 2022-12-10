@@ -17,8 +17,8 @@ spl_autoload_register(function($className) {
             $userID = $_SESSION['login'];
         }
     
-$today = date("Y-m-d");
-$allTasks = "SELECT * FROM taskCard WHERE  creatorid != '$userID'  AND takerid IS NULL AND dateto >= '$today'";
+
+$allTasks = "SELECT * FROM taskCard WHERE  creatorid != '$userID'  AND takerid IS NULL";
 // $allTasks = "SELECT * FROM taskCard WHERE creatorid != '$userID'";
 $opgaverTaget = "SELECT * FROM taskCard WHERE takerid = '$userID' AND active = '1'";
 $opgaverOprettet = "SELECT * FROM taskCard WHERE creatorid = '$userID' AND active = '1'";
@@ -53,20 +53,59 @@ $opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creat
         <section class="tasks-btn-container">
             <!-- <button type="button" id="all-tasks-btn" class="task-btn active-btn">Alle opgaver</button>
             <button type="button" id="your-tasks-btn" class="task-btn">Mine opgaver</button> -->
-            <a href="tasks.php" class="task-btn active-btn">Alle opgaver</a>
-            <a href="your-tasks.php" class="task-btn">Mine opgaver</a>
-        </section>  
+            <a href="tasks.php" class="task-btn">Alle opgaver</a>
+            <a href="your-tasks.php" class="task-btn active-btn">Mine opgaver</a>
+        </section>        
 
-        <section id="allTasks" class="allTasks">
-            <p>Sorteret efter: </p>
+        <section id="yourTasks" class="yourTasks">
 
-            <?php 
-                $showResult = $mySQL->query($allTasks);
-                while($dataRow = $showResult->fetch_object("Task")) {
-                    echo $dataRow->TaskCard();
-                }
-            ?>
-        </section>
+            <section>
+                <h2>Opgaver du har taget</h2>
+                <?php 
+                    $showResult = $mySQL->query($opgaverTaget);
+
+                    if($showResult->num_rows > 0) {
+                        while($dataRow = $showResult->fetch_object("Task")) {
+                            echo $dataRow->TaskCard();
+                        }
+                    } else {
+                        echo "<p class='dummytekst'>Du har ikke booket nogle opgaver</p>";
+                    }
+                ?>
+            </section>
+
+            <section>
+                <h2>Opgaver du har oprettet</h2>
+                <?php 
+                    $showResult = $mySQL->query($opgaverOprettet);
+
+                    if($showResult->num_rows > 0) {
+                        while($dataRow = $showResult->fetch_object("Task")) {
+                            echo $dataRow->TaskCard();
+                        }
+                    } else {
+                        echo "<p class='dummytekst'>Du har ikke oprettet nogle opgaver</p>";
+                    }
+                ?>
+            </section>
+
+
+
+            
+            <section>
+                <h2>Afsluttede opgaver</h2>
+                <?php 
+                    $showResult = $mySQL->query($opgaverAfsluttede);
+
+                    if($showResult->num_rows > 0) {
+                        while($dataRow = $showResult->fetch_object("Task")) {
+                            echo $dataRow->TaskCard();
+                        }
+                    } else {
+                        echo "<p class='dummytekst'>Du har ingen afsluttede opgaver</p>";
+                    }
+                ?>
+            </section>
 
         </section>
             <br><br><br>
