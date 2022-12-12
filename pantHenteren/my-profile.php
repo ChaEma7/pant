@@ -10,8 +10,8 @@
             } else {
                 $userID = $_SESSION['login'];
 
-                /*  selecter betemst data fra pantUsers hvor id'et stemmer overens med token
-                    al data fetches og ligges ind i sessions */
+                /*  Selecter bestemt data fra pantUsers hvor id'et stemmer overens med token.
+                    Al data fetches og ligges ind i sessions */
                 $sql = "SELECT firstname, profilepicture, profiletext FROM pantUsers WHERE id = '$userID'";
                 $response = $mySQL->query($sql);
                 $user = $response->fetch_object();
@@ -62,6 +62,8 @@
                     <div class="backlayer">
                         <h2 class="left-h2">Profiltekst</h2>
                             <?php
+                            /*  Hvis der endnu ikke er lavet en profiltekst til brugerens profil fremvises et dummy tekst 
+                                ellers fremvises profilteksten */
                             if($_SESSION['profiletext'] == NULL) {
                                 echo "<p class='profiltekst'>Jeg har endnu ikke tilføjet en profil tekst, men jeg er rigtig god til at aflevere pant.</p>";
                             } else {
@@ -70,6 +72,7 @@
                             ?>
                         
                         <section class="logout">
+                            <!-- Navigere til logout.php som sletter sessionen og navigere tilbage til login.php -->
                             <a href="logout.php"><img class="logout-ikon" src="img/logout-ikon.png" alt="logout ikon"> Log af</a>
                         </section>
 

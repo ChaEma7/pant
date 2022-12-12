@@ -3,7 +3,7 @@
 class IndexTaskCards {
     public function TaskCard() {
         $imgPath = "original/" . $this->profilepicture;
-
+        // Omformaterer datetime til den ønskede fremvisning
         $dateFrom = date("d/m - H:i", strtotime($this->datefrom));
         $dateTo = date("d/m - H:i", strtotime($this->dateto));
 

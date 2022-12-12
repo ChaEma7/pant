@@ -1,7 +1,7 @@
 <?php 
         session_start();
         include("mysql.php");
-        // læser om der er en status i url'en, ellers sættes den som tom
+        // Læser om der er en status i url'en, ellers sættes den som tom
         $status = isset($_REQUEST['status']) ? $_REQUEST['status'] : "";
 ?>
 <!DOCTYPE html>
@@ -22,7 +22,7 @@
     <main>
         <img class="stort-logo" src="img/logo.png" alt="pant henteren logo">
         <h1 class="h1-left">Hej!</h1>
-        <p>Måske en fed sætning her!</p>
+        <p>Vær med til at hjælpe dig selv, miljøet og andre!</p>
 
         <section class="login-container backlayer">
                 

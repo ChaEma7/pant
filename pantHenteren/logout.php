@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// sletter kun den bestemte session
+// Sletter kun den bestemte session så der logges ud
 unset($_SESSION['login']);
 header("location: login.php");
 

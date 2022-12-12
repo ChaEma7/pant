@@ -3,13 +3,16 @@
     include("mysql.php");
 
 // ================================== OPRET KONTO ======================================
+// Funktion som henter alle emails fra pantLogin tabellen og ser om emailen allerede er i brug
     function check_if_username_is_taken($email){
+            // For at kunne tilgå mySQL i funktionen, laves den som en global variabel
             global $mySQL;
-            //
+            
             $sql = "SELECT * FROM pantLogin WHERE email = '$email'";
             $response = $mySQL->query($sql);
-            // fetch_assoc() Henter resultatet af tabellens række som et sammenhængende array
+            // Fetch_assoc() Henter resultatet af tabellens række som et sammenhængende array
             $email = $response->fetch_assoc();
+            // Spørger om emailen allerede findes i arrayet -> hvis ikke gives værdien false
             $is_username_taken = is_array($email) ? is_array($email) : false;
             return $is_username_taken;
         }
@@ -26,31 +29,34 @@
 
         $is_username_taken = check_if_username_is_taken($email);
 
+        // Kontrollerer at koden er længere end 8 cifre. Hvis ikke sendes status i URL'en, som læses på create.php
         if(8 > strlen($userPassword1)) {
             header('Location: create.php?status=passwordTooShort');
             exit;
         }
 
-        
+        // Kontrollerer om emailen allerede findes. Hvis den gør sendes status i URL'en, som læses på create.php
         if($is_username_taken == true){
         header('Location: create.php?status=userTaken');
         exit;
         };
         
+        // Kontrollerer om de to indtastede kodeord er ens. Hvis ikke sendes status i URL'en, som læses på create.php
         if($userPassword1 !== $userPassword2)  {
             header("location: create.php?status=passwordCreateFail");
             exit;
         } else {
-            // krypterer kodeordet til en en-vejs hashing
+            // Krypterer kodeordet til en en-vejs hashing
             $passEncrypt = password_hash($userPassword1, PASSWORD_DEFAULT);
             // Her indsættes de rigtige værdier ved brug af proceduren addPantUser
             $sql = "CALL addPantUser ('$firstname', '$zipcode', '$city',  '$email', '$passEncrypt')";
             $result = $mySQL->query($sql);
 
+            // Sørger for, at man automatisk er logget ind, når profilen er blevet oprettet. Ved at vælge det senest oprettede id.
             $sql = "SELECT id FROM pantUsers ORDER BY id DESC LIMIT 1";
             $result = $mySQL->query($sql);
             $user = $result->fetch_assoc();
-
+            // Id'et lægges ind i SESSION'en
             $_SESSION['login'] = $user['id'];
             
             header("location: index.php");
@@ -60,8 +66,8 @@
     }
  // ==================================== LOGIN =======================================
 
-    /* tager inputtet fra login formen i login.php og kontrollerer at de indtastede bruger informationer
-       findes i meUsersLogin databasen */
+    /* Tager inputtet fra login formen i login.php og kontrollerer, at de indtastede brugerinformationer
+       findes i pantLogin databasen */
     if(isset($_POST['login'])){
         $inputUserEmail = $_POST['userEmail'];
         $inputUserPassword = $_POST['password'];
@@ -80,11 +86,11 @@
         } else {
             $passwordVerify = password_verify($inputUserPassword, $user->userPassword);
             if($passwordVerify == true){
-                // token gives
+                // Token gives
                 $_SESSION['login'] = $user->id;
             
-                /*  selecter betemst data fra pantUsers hvor id'et stemmer overens med token
-                al data fetches og ligges ind i sessions */
+                /*  Selecter al data fra pantUsers og email fra pantLogin hvor id'et stemmer overens med token.
+                Al data fetches og lægges ind i sessions for at det kan tilgås på hele sitet */
                 $userID = $user->id;
                 $sql = "SELECT * FROM pantUsers WHERE id = '$userID'";
                 $response = $mySQL->query($sql);
@@ -103,7 +109,7 @@
                 $_SESSION['email'] = $user->email;
 
 
-                // der bliver logget ind og sendes til profile.php
+                // Der bliver logget ind og sendes til profile.php
                 header("location: index.php");
             } else {
                 // Giver fejlmeddelses i url'en, som læses af $status i login.php
@@ -115,7 +121,7 @@
     }
 
     // ==================================== UPDATE PROFILE =======================================
-
+    // Tager de intastede værdier fra updateUser formen fra update.php og indsætter dem i den korrekte database
     if(isset($_POST['updateUser'])){
         $inputName = $_POST['firstname'];
         $inputProfileText = $_POST['profiletext'];
@@ -125,34 +131,31 @@
         $userID = $_SESSION['login'];
         // Finder filen fra inputtet i index
         $file = $_FILES["fileToUpload"];
-
+        //Sørger for at alle billedfiler læses som lowercase og at der kun kan vedlægges bestemte filtyper
         $fileType = strtolower(pathinfo($file["name"], PATHINFO_EXTENSION));
         $allowedFiles = array("jpg", "jpeg");
-
-        //var_dump($fileType);
-        //exit;
         
-        // File Upload
+        // Fil upload
         if($file['name'] != "") {
             if(!in_array($fileType, $allowedFiles)) {
                 $error_message = "<p>Beklager, din fil skal være af formatet jpg eller jpeg</p>";
                 echo $error_message;
                 exit;      
             } else {
-                // Vælger hvilken (lokal)mappe den oploadet fil skal ligges i
+                // Vælger hvilken (lokal)mappe den uploadede fil skal ligges i
                 $targetFolder = "original/";
-                // omdanner den uploadet fils navn til en genkendelig variabel???
+                // Omdanner den uploadede fils navn til en genkendelig variabel
                 $fileName = $_SESSION['login'] . "_" . basename($file["name"]);
-                // Flytter den navngivet fil til den rigtige mappe under det rigtige navn?
+                // Flytter den navngivet fil til den rigtige mappe under det rigtige navn
                 move_uploaded_file($file["tmp_name"], $targetFolder . $fileName);
-
+                
                 if($fileName != ""){
                     $sql = "UPDATE pantUsers SET profilepicture = '$fileName' WHERE id = '$userID'";
                     $result = $mySQL->query($sql);
                 } 
             }
         }
-
+        // Hvis inputet ikke er tomt opdateres pantUsers med den nye værdi
         if($inputName != ""){
             $sql = "UPDATE pantUsers SET firstname = '$inputName' WHERE id = '$userID' ";
             $result = $mySQL->query($sql);
@@ -172,7 +175,7 @@
             $sql = "UPDATE pantUsers SET city = '$inputCity' WHERE id = '$userID' ";
             $result = $mySQL->query($sql); 
         } 
-
+        // Hvis email ændres kontrolleres det igen, at den ønskede email ikke allerede er brugt
         if($inputEmail != ""){
                 $is_username_taken = check_if_username_is_taken($inputEmail);
 
@@ -194,17 +197,16 @@
 // ==================================== DELETE PROFILE =======================================
 
     
-
      if(isset($_POST['deleteUser'])){
         $userID = $_SESSION['login'];
-
+        // Kalder proceduren deletePantUser som sletter brugeren/rækken fra databasen
         $sql = "CALL deletePantUser ('$userID')";
         $result = $mySQL->query($sql);
         header("location: login.php"); 
     }
 
 // ==================================== CREATE TASK =======================================
-
+// Opretter en opgave/række i pantTask tabellen
 if(isset($_POST['createTask'])){
         $bags = $_POST['bags'];
         $sacks = $_POST['sacks'];
@@ -219,11 +221,10 @@ if(isset($_POST['createTask'])){
         $note = $_POST['note'];
         $creatorID = $_SESSION['login'];
    
-        
+        // Kalder addTask proceduren og indsætter de rigtige værdier i de rigtige kolonner
         $sql = "CALL addTask ( '$creatorID', '', '', '$bags', '$sacks', '$crates', '$pickup', '$earnings', '$timefrom', '$timeto', '$adress', '$zipcode', '$city', '$note')";
         $result = $mySQL->query($sql);
-        // var_dump($sql);
-        // exit;
+        
         header("location: your-tasks.php");
         exit;                
     }
@@ -234,42 +235,42 @@ if(isset($_POST['createTask'])){
         $userID = $_SESSION['login'];
         $taskID = $_REQUEST['taskID'];
 
+        // Kalder bookTask proceduren som indsætter login id'et i tabellen pantTask som takerid.
+        // TaskID vælger den rigtige opgave, som bliver booket
         $sql = "CALL bookTask ('$userID', '$taskID')";
         $result = $mySQL->query($sql);
-        // var_dump($sql);
-        // exit;
+        
         header("location: your-tasks.php");
         exit;         
     }
 
 // ==================================== ANULLER OPGAVE =======================================
-
+// Fjerner takerid på pantTask og sætter den tilbage til NULL, hvilket frigiver opgaven, så andre kan booke den
   if(isset($_POST['releaseTask'])){
         $taskID = $_REQUEST['taskID'];
 
         $sql = "CALL releaseTask ('$taskID')";
         $result = $mySQL->query($sql);
-        // var_dump($sql);
-        // exit;
+        
         header("location: your-tasks.php");
         exit;         
     }
 
     // ==================================== AFSLUT OPGAVE =======================================
-
+// Ændrer værdien active i pantTask fra 1 til 0, hvilket afslutter opgaven
   if(isset($_POST['taskDone'])){
         $taskID = $_REQUEST['taskID'];
 
         $sql = "CALL taskDone ('$taskID')";
         $result = $mySQL->query($sql);
-        // var_dump($result);
-        // exit;
+        
         header("location: your-tasks.php");
         exit;         
     }
 
 // ==================================== REDIGER OPGAVE =======================================
 
+// Vidersender til edit-task.php?id=$taskID når der trykkes på redigér knappen på task-detals.php
   if(isset($_POST['editTask'])){  
         $taskID = $_REQUEST['taskID'];
         $userID = $_SESSION['login'];
@@ -278,11 +279,9 @@ if(isset($_POST['createTask'])){
         exit;
     }
 
+// Tager de intastede værdier fra updateTask formen fra edit-task.php og indsætter dem i den korrekte database
   if(isset($_POST['updateTask'])){
         $taskID = $_REQUEST['taskID'];
-
-        // var_dump($taskID);
-        // exit;
         
         $inputbags = $_POST['bags'];
         $inputsacks = $_POST['sacks'];
@@ -296,6 +295,7 @@ if(isset($_POST['createTask'])){
         $inputcity = $_POST['city'];
         $inputnote = $_POST['note'];
 
+        // Hvis inputet ikke er tomt opdateres pantTask med den nye værdi
         if($inputbags != ""){
             $sql = "UPDATE pantTask SET bags = '$inputbags' WHERE id = '$taskID' ";
             $result = $mySQL->query($sql);
@@ -359,7 +359,7 @@ if(isset($_POST['createTask'])){
 
 
 // ==================================== ANNULLER OPGAVE =======================================
-
+// Sletter opgaven/rækken fra pantTask
   if(isset($_POST['cancelTask'])){
         $taskID = $_REQUEST['taskID'];
 

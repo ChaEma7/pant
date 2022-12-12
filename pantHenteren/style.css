@@ -271,6 +271,11 @@ input[type="checkbox"] {
   text-align: center;
 }
 
+.login-container {
+  padding-top: 20px;
+  padding-bottom: 47px;
+}
+
 /* ======================================= INDEX ======================================= */
 
 .cta-section {
@@ -565,11 +570,6 @@ textarea {
   gap: 5px;
 }
 
-.header-info img {
-  height: 20px;
-  margin-top: 30px;
-}
-
 .header-info .left-h2 {
   padding: 30px 0 0 20px;
 }
@@ -722,21 +722,6 @@ input[type="datetime-local"] {
   background-color: var(--white);
   padding: 0 10px;
 }
-
-/* ----------------- Info overlays -------------------
-.info-overlay {
-  position: absolute;
-  z-index: 1;
-  margin: 0 20px;
-  width: 350px;
-  background-color: var(--white);
-  border-radius: 20px;
-  display: none;
-}
-
-.info-overlay {
-  display: block;
-} */
 
 /*=================================== OPGAVER =======================================*/
 
@@ -896,7 +881,8 @@ h5 {
 }
 
 .allTask-p {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+  color: var(--darkgreen);
 }
 
 .sorting {
@@ -909,9 +895,9 @@ h5 {
   font-size: 16px;
   font-family: "Poppins", sans-serif;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  position: absolute;
-  right: 20px;
-  top: 157px;
+  position: relative;
+  top: 17px;
+  left: 115px;
   padding-right: 25px;
 }
 

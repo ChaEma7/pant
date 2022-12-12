@@ -1,9 +1,10 @@
 <?php 
-        session_start();
         //søger automatisk efter class i folderen og includer den, hvis den bliver kaldt
         spl_autoload_register(function($className) {
-                include_once $_SERVER['DOCUMENT_ROOT'] . '/classes/' . $className . '.php';
+                include_once $_SERVER['DOCUMENT_ROOT'] . '/pantHenteren/classes/' . $className . '.php';
             });
+        session_start();
+        
         include("mysql.php");
 
         
@@ -13,9 +14,15 @@
             exit;
             } else {
                 $userID = isset($_REQUEST['id']) ? $_REQUEST['id'] : "";
-
+                // Hvis der trykkes på eget billede sendes man til sin egen profil
+                if($userID == $_SESSION['login']){
+                    header('location: my-profile.php');
+                    exit; 
+                }
+                // Hvis der trykkes på en anden bruger sendes man til brugerens profil.
+                // Den aktuelle brugers oplysninger bliver gemt i sessions og fremvist på siden.
+                // $userID bliver sendt med i url'en når der navigeres til siden (TaskDetail.php klassen).
                 $sql = "SELECT firstname, profilepicture, profiletext FROM pantUsers WHERE id = '$userID'";
-                // $sql = "SELECT * FROM otherProfile WHERE id = '$userID'";
                 $response = $mySQL->query($sql);
                 $user = $response->fetch_object();
 
@@ -64,6 +71,8 @@
                     <div class="backlayer">
                         <h2 class="left-h2">Profiltekst</h2>
                             <?php
+                            /*  Hvis der endnu ikke er lavet en profiltekst til brugerens profil fremvises et dummy tekst 
+                                ellers fremvises profilteksten */
                             if($_SESSION['profiletext'] == NULL) {
                                 echo "<p class='profiltekst'>Jeg har endnu ikke tilføjet en profil tekst, men jeg er rigtig god til at aflevere pant.</p>";
                             } else {

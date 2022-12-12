@@ -1,20 +1,22 @@
 <?php 
-        session_start();
-
-        //søger automatisk efter class i folderen og includer den, hvis den bliver kaldt
+         //Søger automatisk efter class i folderen og includer den, hvis den bliver kaldt
         spl_autoload_register(function($className) {
-                include_once $_SERVER['DOCUMENT_ROOT'] . '/classes/' . $className . '.php';
+                include_once $_SERVER['DOCUMENT_ROOT'] . '/pantHenteren/classes/' . $className . '.php';
         });
+        session_start();
         include("mysql.php");
 
         /* Hvis der ikke er logget ind sendes man tilbage til index.php */
         if(!isset($_SESSION['login'])){
-            header('location: index.php');
+            header('location: login.php');
             exit;
             } else {
                 $userID = $_SESSION['login'];
             }
 $userID = $_SESSION['login'];
+// Vælger all data fra viewet taskCard hvor creatorid ikke er det id, som der er logget ind med, og hvor takerid er NULL.
+// Altså fremvises kun opgaver man ikke selv har oprettet, og som endnu ikke er taget af andre.
+// Disse lægges i variabler som bruges senere.
 $allTasks = "SELECT * FROM taskCard WHERE  creatorid != '$userID' AND takerid IS NULL ORDER BY id ASC LIMIT 4";
 $lastChance = "SELECT * FROM taskCard WHERE creatorid != '$userID' AND takerid IS NULL ORDER BY dateto ASC LIMIT 4";
 ?>
@@ -61,6 +63,7 @@ $lastChance = "SELECT * FROM taskCard WHERE creatorid != '$userID' AND takerid I
                         </section>
                         <section class="index-scrolls">
                                 <?php 
+                                        // Henter den ønskede data og sætter det i et whileloop som fremvises som indikeret i IndexTaskCards klassen
                                         $showResult = $mySQL->query($allTasks);
                                         while($dataRow = $showResult->fetch_object("IndexTaskCards")) {
                                         echo $dataRow->TaskCard();
@@ -76,6 +79,7 @@ $lastChance = "SELECT * FROM taskCard WHERE creatorid != '$userID' AND takerid I
                         </section>
                         <section class="index-scrolls">
                                 <?php 
+                                        // Henter den ønskede data og sætter det i et whileloop som fremvises som indikeret i IndexTaskCards klassen
                                         $showResult = $mySQL->query($lastChance);
                                         while($dataRow = $showResult->fetch_object("IndexTaskCards")) {
                                         echo $dataRow->TaskCard();

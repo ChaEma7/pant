@@ -1,36 +1,39 @@
 <?php 
+    //søger automatisk efter class i folderen og includer den, hvis den bliver kaldt
+    spl_autoload_register(function($className) {
+            include_once $_SERVER['DOCUMENT_ROOT'] . '/pantHenteren/classes/' . $className . '.php';
+        });
+    session_start();
 
-session_start();
 
-//søger automatisk efter class i folderen og includer den, hvis den bliver kaldt
-spl_autoload_register(function($className) {
-        include_once $_SERVER['DOCUMENT_ROOT'] . '/classes/' . $className . '.php';
-    });
 
-    include("mysql.php");
+        include("mysql.php");
 
-        /* Hvis der ikke er logget ind sendes man tilbage til index.php */
-        if(!isset($_SESSION['login'])){
-            header('location: index.php');
-            exit;
-            } else {
-                $userID = $_SESSION['login'];
-            }
+            /* Hvis der ikke er logget ind sendes man tilbage til index.php */
+            if(!isset($_SESSION['login'])){
+                header('location: index.php');
+                exit;
+                } else {
+                    $userID = $_SESSION['login'];
+                }
+    // Henter id'et i url'en
+    $taskID = isset($_REQUEST['id']) ? $_REQUEST['id'] : "";
+    // Samler al data hvor id'et stemmer overens med $taskID
+    $allData = "SELECT * FROM taskCard WHERE id = '$taskID'";
+    $userID = $_SESSION['login'];
 
-$taskID = isset($_REQUEST['id']) ? $_REQUEST['id'] : "";
-$allData = "SELECT * FROM taskCard WHERE id = '$taskID'";
-$takerIDquery = "SELECT takerid FROM taskCard WHERE id = '$taskID'";
-$creatorIDquery = "SELECT creatorid FROM taskCard WHERE id = '$taskID'";
-$activeQuery = "SELECT active FROM taskCard WHERE id = '$taskID'";
-$userID = $_SESSION['login'];
+    // Bruges i if funktionen, som bestemmer hvilken knap, der skal fremvises alt efter om du er opgaveopretter eller tager
+    $creatorIDquery = "SELECT creatorid FROM taskCard WHERE id = '$taskID'";
+    $result = $mySQL->query($takerIDquery);
+    $takerID = $result->fetch_object()->takerid;
 
-// Bruges i if funktionen, som bestemmer hvilken knap, der skal fremvises alt efter om du er opgave opretter eller tager
-$result = $mySQL->query($takerIDquery);
-$takerID = $result->fetch_object()->takerid;
-$result = $mySQL->query($creatorIDquery);
-$creatorID = $result->fetch_object()->creatorid;
-$result = $mySQL->query($activeQuery);
-$activeStatus = $result->fetch_object()->active;
+    $creatorIDquery = "SELECT creatorid FROM taskCard WHERE id = '$taskID'";
+    $result = $mySQL->query($creatorIDquery);
+    $creatorID = $result->fetch_object()->creatorid;
+    // Vælger og fetcher attributten active fra viewet taskCard hvor id'et stemmer overens med $taskID 
+    $activeQuery = "SELECT active FROM taskCard WHERE id = '$taskID'";
+    $result = $mySQL->query($activeQuery);
+    $activeStatus = $result->fetch_object()->active;
 
 ?>
 <!DOCTYPE html>
@@ -39,7 +42,7 @@ $activeStatus = $result->fetch_object()->active;
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update profil</title>
+    <title>PantHenteren</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -64,9 +67,6 @@ $activeStatus = $result->fetch_object()->active;
         <section class="backlayer backlayerSolid">
 
                 <?php 
-                // var_dump($activeStatus);
-                // exit;
-
                     $showResult = $mySQL->query($allData);
 
                     if($showResult->num_rows > 0) {
@@ -85,7 +85,7 @@ $activeStatus = $result->fetch_object()->active;
                         echo "<form id='book-form' method='post' action='backend.php?taskID=$taskID'>
                                 <input class='btn' type='submit' name='editTask' value='Redigér opgave'>
                             <button class='slet-btn nedtonet' onclick='togglePopup(); return false'>Slet opgave</button>
-
+                            
                             <section class='popup' id='popup-delete'>
                                 <section class='popup-overlay'></section>
                                 <section class='popup-content'>
