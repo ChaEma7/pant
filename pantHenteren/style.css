@@ -889,6 +889,58 @@ h5 {
   font-size: 14px;
 }
 
+/*--------- Sortering popup ----------*/
+
+.allTasks {
+  margin-top: 30px;
+}
+
+.allTask-p {
+  margin-bottom: 30px;
+}
+
+.sorting {
+  width: 120px;
+  height: 38px;
+  background-color: var(--white);
+  border: none;
+  border-radius: 10px;
+  color: var(--darkgreen);
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  right: 20px;
+  top: 157px;
+  padding-right: 25px;
+}
+
+.pilned {
+  position: absolute;
+  right: 10px;
+  margin-top: -5px;
+}
+
+.sorterings-kasse {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sorterings-kasse {
+  height: 40px;
+  border-bottom: 1px solid var(--lightgreen);
+}
+
+.sortering {
+  width: 100%;
+}
+
+.sorting-text {
+  color: var(--lightgreen);
+  vertical-align: middle;
+}
+
 /*=================================== OPGAVER DETALJE SIDEN =======================================*/
 
 .backlayerSolid {

@@ -11,9 +11,21 @@ function togglePopupBookTask() {
   document.getElementById("popup-book").classList.toggle("active");
 }
 
+function togglePopupSortTask() {
+  document.getElementById("popup-sorting").classList.toggle("active");
+}
+
 // sørger for, at kun en chekbox i en gruppe kan være chekket
 function onlyOne(checkbox) {
   var checkboxes = document.getElementsByName("pickup");
+  checkboxes.forEach((item) => {
+    if (item !== checkbox) item.checked = false;
+  });
+}
+
+// sørger for, at kun en chekbox i en gruppe kan være chekket
+function onlyOneSort(checkbox) {
+  var checkboxes = document.getElementsByName("sortThis");
   checkboxes.forEach((item) => {
     if (item !== checkbox) item.checked = false;
   });

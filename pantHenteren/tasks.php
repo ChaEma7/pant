@@ -56,9 +56,33 @@ $opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creat
             <a href="tasks.php" class="task-btn active-btn">Alle opgaver</a>
             <a href="your-tasks.php" class="task-btn">Mine opgaver</a>
         </section>  
+        <section class="sorting-container">
+            <button class="sorting" onclick="togglePopupSortTask(); return false">Sortér efter <b class="pilned"> &#8964; </b></button>
+            
+            <section class="popup" id="popup-sorting">
+                <section class="popup-overlay"></section>
+                <section class="popup-content">
+                    <form id="sort-form" method="post" action="backend.php">
+                        <div class="sorterings-kasse">
+                            <label class="sorting-text" for="nyesteTask">Nyeste opgave</label>
+                            <input class="sortering" type="checkbox" id="nyesteTask" name="sortThis" onclick="onlyOneSort(this)" value="nyesteTask" checked>
+                        </div>
+                        <div class="sorterings-kasse">
+                            <label class="sorting-text" for="mestPant">Mest pant</label>
+                            <input class="sortering" type="checkbox" id="mestPant" name="sortThis" onclick="onlyOneSort(this)" value="mestPant">
+                        </div>
+                        <div class="sorterings-kasse">
+                            <label class="sorting-text" for="mestUdbytte">Mest udbytte</label>
+                            <input class="sortering" type="checkbox" id="mestUdbytte" name="sortThis" onclick="onlyOneSort(this)" value="mestUdbytte">
+                        </div>
+                        <input class="btn" type="submit" name="sortThis" value="Andvend">
+                    </form>  
+                </section>
+            </section>
+        </section>
 
         <section id="allTasks" class="allTasks">
-            <p>Sorteret efter: </p>
+            <p class="allTask-p">Sorteret efter: </p>
 
             <?php 
                 $showResult = $mySQL->query($allTasks);

@@ -280,6 +280,9 @@ if(isset($_POST['createTask'])){
 
   if(isset($_POST['updateTask'])){
         $taskID = $_REQUEST['taskID'];
+
+        // var_dump($taskID);
+        // exit;
         
         $inputbags = $_POST['bags'];
         $inputsacks = $_POST['sacks'];
@@ -347,9 +350,6 @@ if(isset($_POST['createTask'])){
             $sql = "UPDATE pantTask SET note = '$inputnote' WHERE id = '$taskID' ";
             $result = $mySQL->query($sql);
         }
-
-        // var_dump($result);
-        // exit;
 
         header("location: task-detail.php?id=$taskID");
         exit;

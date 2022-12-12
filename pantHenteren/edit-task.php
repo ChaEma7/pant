@@ -61,7 +61,7 @@
         
         <section class="backlayer">
             <h1>Redigér opgave</h1>
-            <form method="post" action="backend.php?taskID=$taskID" enctype="multipart/form-data">
+            <form method="post" action="backend.php?taskID=<?php echo $taskID?>" enctype="multipart/form-data">
                 <div class="header-info">
                     <h2 class="left-h2">Angiv mængde</h2>
                     <img src="img/info-ikon.png" alt="info ikon">
@@ -161,16 +161,7 @@
                     <h2 class="left-h2">Angiv tidsrum</h2>
                     <img src="img/info-ikon.png" alt="info ikon">
                 </div>
-                    <div class="afhentnings-checkbox">
-                        <!-- <div>
-                            <input id="no-limit" type="checkbox" name="no-limit">
-                            <label for="no-limit">Ubegrænset</label>
-                        </div>
-                        <div>
-                            <input id="limit" type="checkbox" name="limit">
-                            <label for="limit">Bestemt tidsrum</label>
-                        </div> -->
-                    </div>
+                    
                         <section class="tidsrum">
                             <div class="timeLabel">
                                 <label for="timefrom">Afhentes fra</label>
