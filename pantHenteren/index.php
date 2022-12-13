@@ -17,7 +17,7 @@ $userID = $_SESSION['login'];
 // Vælger all data fra viewet taskCard hvor creatorid ikke er det id, som der er logget ind med, og hvor takerid er NULL.
 // Altså fremvises kun opgaver man ikke selv har oprettet, og som endnu ikke er taget af andre.
 // Disse lægges i variabler som bruges senere.
-$allTasks = "SELECT * FROM taskCard WHERE  creatorid != '$userID' AND takerid IS NULL ORDER BY id ASC LIMIT 4";
+$allTasks = "SELECT * FROM taskCard WHERE creatorid != '$userID' AND takerid IS NULL ORDER BY id DESC LIMIT 4";
 $lastChance = "SELECT * FROM taskCard WHERE creatorid != '$userID' AND takerid IS NULL ORDER BY dateto ASC LIMIT 4";
 ?>
 
@@ -87,6 +87,7 @@ $lastChance = "SELECT * FROM taskCard WHERE creatorid != '$userID' AND takerid I
                                 ?>
                         </section>
                 </section>
+                <br><br><br><br>
         </main> 
 
         <footer>

@@ -18,20 +18,18 @@
                 }
     // Henter id'et i url'en
     $taskID = isset($_REQUEST['id']) ? $_REQUEST['id'] : "";
-    // Samler al data hvor id'et stemmer overens med $taskID
     $allData = "SELECT * FROM taskCard WHERE id = '$taskID'";
+    $takerIDquery = "SELECT takerid FROM taskCard WHERE id = '$taskID'";
+    $creatorIDquery = "SELECT creatorid FROM taskCard WHERE id = '$taskID'";
+    $activeQuery = "SELECT active FROM taskCard WHERE id = '$taskID'";
     $userID = $_SESSION['login'];
 
-    // Bruges i if funktionen, som bestemmer hvilken knap, der skal fremvises alt efter om du er opgaveopretter eller tager
-    $creatorIDquery = "SELECT creatorid FROM taskCard WHERE id = '$taskID'";
+    // Bruges i if funktionen, som bestemmer hvilken knap, der skal fremvises alt efter om du er opgave opretter eller tager
     $result = $mySQL->query($takerIDquery);
     $takerID = $result->fetch_object()->takerid;
-
-    $creatorIDquery = "SELECT creatorid FROM taskCard WHERE id = '$taskID'";
     $result = $mySQL->query($creatorIDquery);
     $creatorID = $result->fetch_object()->creatorid;
-    // Vælger og fetcher attributten active fra viewet taskCard hvor id'et stemmer overens med $taskID 
-    $activeQuery = "SELECT active FROM taskCard WHERE id = '$taskID'";
+    // Vælger og fetcher attributten active fra viewet taskCard hvor id'et stemmer overens med $taskID
     $result = $mySQL->query($activeQuery);
     $activeStatus = $result->fetch_object()->active;
 

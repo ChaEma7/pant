@@ -1,5 +1,5 @@
 <?php 
-//søger automatisk efter class i folderen og includer den, hvis den bliver kaldt
+//Søger automatisk efter class i folderen og includer den, hvis den bliver kaldt
 spl_autoload_register(function($className) {
         include_once $_SERVER['DOCUMENT_ROOT'] . '/pantHenteren/classes/' . $className . '.php';
     });
@@ -17,11 +17,13 @@ session_start();
             $userID = $_SESSION['login'];
         }
     
-
+// Vælger alle frie opgaver
 $allTasks = "SELECT * FROM taskCard WHERE  creatorid != '$userID'  AND takerid IS NULL";
-// $allTasks = "SELECT * FROM taskCard WHERE creatorid != '$userID'";
+// Vælger opgaver, som brugeren har taget, men som endnu ikke er løst
 $opgaverTaget = "SELECT * FROM taskCard WHERE takerid = '$userID' AND active = '1'";
+// Vælger opgaver, som brugeren har oprettet, men som endnu ikke er løst
 $opgaverOprettet = "SELECT * FROM taskCard WHERE creatorid = '$userID' AND active = '1'";
+// Vælger opgaver, som brugeren har taget og oprettet, men som er løst
 $opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creatorid = '$userID') AND active = '0'";
 
 
@@ -51,7 +53,8 @@ $opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creat
         </header>
 
         <section class="tasks-btn-container">
-            <!-- <button type="button" id="all-tasks-btn" class="task-btn active-btn">Alle opgaver</button>
+            <!-- Dette bruges ikke, da det gav mere mening for navigationen at tasks.php og your-tasks.php blev delt op i hver deres side. 
+                <button type="button" id="all-tasks-btn" class="task-btn active-btn">Alle opgaver</button>
             <button type="button" id="your-tasks-btn" class="task-btn">Mine opgaver</button> -->
             <a href="tasks.php" class="task-btn">Alle opgaver</a>
             <a href="your-tasks.php" class="task-btn active-btn">Mine opgaver</a>
@@ -62,8 +65,10 @@ $opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creat
             <section>
                 <h2>Opgaver du har taget</h2>
                 <?php 
+                    // Fremviser alle opgaver som at taget af brugeren
                     $showResult = $mySQL->query($opgaverTaget);
-
+                    // num_rows retunerer det antal af rækker som er i resultatsættet $showResult 
+                    // Hvis antallet er større end 0 fremvises opgaverne ellers udskrives en dummytekst
                     if($showResult->num_rows > 0) {
                         while($dataRow = $showResult->fetch_object("Task")) {
                             echo $dataRow->TaskCard();
@@ -77,8 +82,10 @@ $opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creat
             <section>
                 <h2>Opgaver du har oprettet</h2>
                 <?php 
+                    // Fremviser alle opgaver som er oprettet af brugeren
                     $showResult = $mySQL->query($opgaverOprettet);
-
+                    // num_rows retunerer det antal af rækker som er i resultatsættet $showResult 
+                    // Hvis antallet er større end 0 fremvises opgaverne ellers udskrives en dummytekst
                     if($showResult->num_rows > 0) {
                         while($dataRow = $showResult->fetch_object("Task")) {
                             echo $dataRow->TaskCard();
@@ -95,8 +102,10 @@ $opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creat
             <section>
                 <h2>Afsluttede opgaver</h2>
                 <?php 
+                    // Fremviser alle opgaver som at taget og oprettet af brugeren og som er afsluttet
                     $showResult = $mySQL->query($opgaverAfsluttede);
-
+                    // num_rows retunerer det antal af rækker som er i resultatsættet $showResult 
+                    // Hvis antallet er større end 0 fremvises opgaverne ellers udskrives en dummytekst
                     if($showResult->num_rows > 0) {
                         while($dataRow = $showResult->fetch_object("Task")) {
                             echo $dataRow->TaskCard();

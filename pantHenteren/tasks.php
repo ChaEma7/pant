@@ -16,12 +16,11 @@ session_start();
         } else {
             $userID = $_SESSION['login'];
         }
-    
+// Sætter datoen for i dag i samme format som det skrives i databasen    
 $today = date("Y-m-d");
+// Vælger alle frie opgaver, hvor afhentnings tidspunktet ikke er udløbet
 $allTasks = "SELECT * FROM taskCard WHERE  creatorid != '$userID'  AND takerid IS NULL AND dateto >= '$today'";
-$opgaverTaget = "SELECT * FROM taskCard WHERE takerid = '$userID' AND active = '1'";
-$opgaverOprettet = "SELECT * FROM taskCard WHERE creatorid = '$userID' AND active = '1'";
-$opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creatorid = '$userID') AND active = '0'";
+
 
 
 ?>
@@ -50,7 +49,8 @@ $opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creat
         </header>
 
         <section class="tasks-btn-container">
-            <!-- <button type="button" id="all-tasks-btn" class="task-btn active-btn">Alle opgaver</button>
+            <!-- Dette bruges ikke, da det gav mere mening for navigationen at tasks.php og your-tasks.php blev delt op i hver deres side.
+                <button type="button" id="all-tasks-btn" class="task-btn active-btn">Alle opgaver</button>
             <button type="button" id="your-tasks-btn" class="task-btn">Mine opgaver</button> -->
             <a href="tasks.php" class="task-btn active-btn">Alle opgaver</a>
             <a href="your-tasks.php" class="task-btn">Mine opgaver</a>
@@ -84,6 +84,7 @@ $opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creat
             <p class="allTask-p">Sorteret efter: 
 
             <?php 
+                // Vælger hvilken form for sortering der skal være og skriver det i allTask-P
                 $sorting = isset($_REQUEST['sortThis']) ? $_REQUEST['sortThis'] : "nyesteTask";
                 if($sorting == 'nyesteTask') {
                     $allTasks .= ' ORDER BY dt DESC';
@@ -100,7 +101,7 @@ $opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creat
                     echo "<b>Størst udbytte</b>";
                 }
                 echo "</p>";
-                
+                // Fremviser alle opgaver, som endnu ikke er taget og som ikke er udløbet i den ønskede sortering
                 $showResult = $mySQL->query($allTasks);
                 while($dataRow = $showResult->fetch_object("Task")) {
                     echo $dataRow->TaskCard();

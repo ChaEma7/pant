@@ -10,8 +10,8 @@
         } else {
             $userID = $_SESSION['login'];
 
-            /*  selecter betemst data fra pantUsers hvor id'et stemmer overens med token
-                al data fetches og ligges ind i sessions */
+            /*  Selecter betemst data fra pantUsers hvor id'et stemmer overens med token
+                al data fetches og ligges ind i sessions så det kan fremvises og opdateres i databasen*/
             $sql = "SELECT * FROM pantUsers WHERE id = '$userID'";
             $response = $mySQL->query($sql);
             $user = $response->fetch_object();
@@ -86,7 +86,7 @@
                     <br>
                     <?php
                     if($status == "userTaken") {
-                        // udskriver status fra url'en
+                        // Udskriver status fra url'en
                         echo "Den indtastede email er allerede brugt";
                     }
                     ?>
@@ -95,6 +95,7 @@
                 <br>
                 <input class="btn" type="submit" name="updateUser" value="Gem ændringer">
                 <br>
+                <!-- Åbner en alert popup kasse -->
                 <button class="slet-btn nedtonet" onclick="togglePopup(); return false">Slet konto</button>
 
                 <section class="popup" id="popup-delete">
@@ -104,6 +105,7 @@
                         <h2>Er du sikker på, at du vil slette din konto?</h2>
                         <section class="popup-btns">
                             <button class="annuller-btn" onclick="togglePopup(); return false">Annuller</button>
+                            <!-- Sletter brugeren/rækken fra databasen -->
                             <input class="delete-btn" type="submit" name="deleteUser" value="Slet konto">
                         </section>
                     </section>
