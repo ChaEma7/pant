@@ -65,6 +65,12 @@
                 ?>
                 <p class="input-beskrivelse">Opdater dit profilbillede</p>
                     <input class="file-upload" type="file" name="fileToUpload">
+                    <?php
+                    if($status == "pictureFail") {
+                        // Udskriver status fra url'en
+                        echo "<p class='fejlmeddelse'>Beklager, din fil skal være af formatet jpg eller jpeg</p>";
+                    }
+                    ?>
                 <br>
                 <br>
                 <p class="input-beskrivelse">Opdater din profiltekst</p>
@@ -87,11 +93,9 @@
                     <?php
                     if($status == "userTaken") {
                         // Udskriver status fra url'en
-                        echo "Den indtastede email er allerede brugt";
+                        echo "<p class='fejlmeddelse'>Den indtastede email er allerede brugt</p>";
                     }
                     ?>
-                <br>
-                <a class="nedtonet" href="">Ændre adgangskode</a>
                 <br>
                 <input class="btn" type="submit" name="updateUser" value="Gem ændringer">
                 <br>

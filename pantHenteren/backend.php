@@ -138,8 +138,8 @@
         // Fil upload
         if($file['name'] != "") {
             if(!in_array($fileType, $allowedFiles)) {
-                $error_message = "<p>Beklager, din fil skal være af formatet jpg eller jpeg</p>";
-                echo $error_message;
+                // Giver fejlmeddelses i url'en, som læses af $status i update.php
+                header("location: update.php?status=pictureFail");
                 exit;      
             } else {
                 // Vælger hvilken (lokal)mappe den uploadede fil skal ligges i
@@ -220,13 +220,18 @@ if(isset($_POST['createTask'])){
         $city = $_POST['city'];
         $note = $_POST['note'];
         $creatorID = $_SESSION['login'];
-   
-        // Kalder addTask proceduren og indsætter de rigtige værdier i de rigtige kolonner
-        $sql = "CALL addTask ( '$creatorID', '', '', '$bags', '$sacks', '$crates', '$pickup', '$earnings', '$timefrom', '$timeto', '$adress', '$zipcode', '$city', '$note')";
-        $result = $mySQL->query($sql);
-        
-        header("location: your-tasks.php");
-        exit;                
+
+        if($timefrom > $timeto){
+            header("location: create-task.php?status=dateFail");
+            exit;
+        } else {
+            // Kalder addTask proceduren og indsætter de rigtige værdier i de rigtige kolonner
+            $sql = "CALL addTask ( '$creatorID', '', '', '$bags', '$sacks', '$crates', '$pickup', '$earnings', '$timefrom', '$timeto', '$adress', '$zipcode', '$city', '$note')";
+            $result = $mySQL->query($sql);
+            
+            header("location: your-tasks.php");
+            exit; 
+        }               
     }
     
 // ==================================== BOOK OPGAVE =======================================

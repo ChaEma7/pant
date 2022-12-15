@@ -22,10 +22,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-    <link href="https://rangeslider.js.org/assets/rangeslider.js/dist/rangeslider.css" rel="stylesheet"/>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://rangeslider.js.org/assets/rangeslider.js/dist/rangeslider.min.js"></script>
 </head>
 
 <body>
@@ -125,29 +122,34 @@
                 </div>
                         <section class="tidsrum">
                             <div class="timeLabel">
-                                <label  for="timefrom">Afhentes fra</label>
+                                <label  for="timefrom">Afhentes fra<strong>*</strong></label>
                                 <input type="datetime-local" id="timefrom" name="timefrom" required>
                             </div>
                             <div class="timeLabel">
-                                <label for="timeto">Afhentes til</label>
+                                <label for="timeto">Afhentes til<strong>*</strong></label>
                                 <input type="datetime-local" id="timeto" name="timeto" required>
-                            </div>
-                            
+                            </div>                            
                         </section>
+                        <?php
+                        if($status == "dateFail") {
+                            // Udskriver status fra url'en
+                            echo "<p class='fejlmeddelse'>Slutdato skal være senere end startdato</p>";
+                        }
+                        ?>
 
                 <div class="header-info">
                     <h2 class="left-h2">Angiv afhentnings adresse</h2>
                 </div>
-                    <p class="input-beskrivelse">Adresse</p>
+                    <p class="input-beskrivelse">Adresse <strong>*</strong></p>
                     <input class="update-input" type="text" name="adress" placeholder="Adresse" required>
                     <div class="grid-input">
                         <div class="zipcode">
-                            <p class="input-beskrivelse">Postnr.</p>
+                            <p class="input-beskrivelse">Postnr.<strong>*</strong></p>
                             <!-- Henter værdien fra zipcode og city, som brugeren har angivet i deres profil -->
                                 <input class="update-input" type="number" name="zipcode" value="<?php echo $_SESSION['zipcode']?>" required>
                         </div>
                         <div class="city">
-                            <p class="input-beskrivelse">By</p>
+                            <p class="input-beskrivelse">By<strong>*</strong></p>
                                 <input class="update-input" type="text" name="city" value="<?php echo $_SESSION['city']?>" required>
                         </div>
                     </div>

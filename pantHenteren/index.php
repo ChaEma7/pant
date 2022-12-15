@@ -75,7 +75,7 @@ $lastChance = "SELECT * FROM taskCard WHERE creatorid != '$userID' AND takerid I
                 <section class="index-kategorier">
                         <section class="index-headers">
                                 <h2>Hent inden det er for sent</h2>
-                                <a href="tasks.php">se alle <b class="seAllePil">&rsaquo;</b></a>
+                                <a href="tasks.php?sortThis=lastChance">se alle <b class="seAllePil">&rsaquo;</b></a>
                         </section>
                         <section class="index-scrolls">
                                 <?php 

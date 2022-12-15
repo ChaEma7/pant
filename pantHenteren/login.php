@@ -31,7 +31,7 @@
                         <input class="text-input" type="text" name="userEmail" placeholder="mail@mail.com" required>
                         <?php
                             if($status == "usernameFail") {
-                                // udskriver status fra url'en
+                                // Udskriver status fra url'en
                                 echo "<p class='fejlmeddelse'>Ugyldig e-mail</p>";
                             }
                         ?>
@@ -39,7 +39,7 @@
                         <input class="text-input" type="password" name="password" placeholder="Min. 8 tegn" required>
                         <?php
                             if($status == "passwordFail") {
-                                // udskriver status fra url'en
+                                // Udskriver status fra url'en
                                 echo "<p class='fejlmeddelse'>Forkert kodeord</p>";
                         }?>
                    

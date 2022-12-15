@@ -29,12 +29,12 @@
                         <input class="text-input" type="text" name="firstname" placeholder="Fornavn" required>
                         <div class="grid-input">
                             <div class="zipcode">
-                                <p class="input-beskrivelse">Postnr.</p>
-                                    <input class="text-input" type="number" name="zipcode" placeholder="0000">
+                                <p class="input-beskrivelse">Postnr.<strong>*</strong></p>
+                                    <input class="text-input" type="number" name="zipcode" placeholder="0000" required>
                             </div>
                             <div class="city">
-                                <p class="input-beskrivelse">By</p>
-                                    <input class="text-input" type="text" name="city" placeholder="Bynavn">
+                                <p class="input-beskrivelse">By<strong>*</strong></p>
+                                    <input class="text-input" type="text" name="city" placeholder="Bynavn" required>
                             </div>
                         </div>
                     <p class="input-beskrivelse">Email<strong>*</strong></p>

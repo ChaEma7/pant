@@ -20,11 +20,11 @@ session_start();
 // Vælger alle frie opgaver
 $allTasks = "SELECT * FROM taskCard WHERE  creatorid != '$userID'  AND takerid IS NULL";
 // Vælger opgaver, som brugeren har taget, men som endnu ikke er løst
-$opgaverTaget = "SELECT * FROM taskCard WHERE takerid = '$userID' AND active = '1'";
+$opgaverTaget = "SELECT * FROM taskCard WHERE takerid = '$userID' AND active = '1' ORDER BY id DESC";
 // Vælger opgaver, som brugeren har oprettet, men som endnu ikke er løst
-$opgaverOprettet = "SELECT * FROM taskCard WHERE creatorid = '$userID' AND active = '1'";
+$opgaverOprettet = "SELECT * FROM taskCard WHERE creatorid = '$userID' AND active = '1' ORDER BY id DESC";
 // Vælger opgaver, som brugeren har taget og oprettet, men som er løst
-$opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creatorid = '$userID') AND active = '0'";
+$opgaverAfsluttede = "SELECT * FROM taskCard WHERE (takerid = '$userID' OR creatorid = '$userID') AND active = '0' ORDER BY id DESC";
 
 
 ?>

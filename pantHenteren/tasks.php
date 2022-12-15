@@ -100,6 +100,11 @@ $allTasks = "SELECT * FROM taskCard WHERE  creatorid != '$userID'  AND takerid I
                     $allTasks .= ' ORDER BY earnings DESC';
                     echo "<b>Størst udbytte</b>";
                 }
+
+                if($sorting == 'lastChance') {
+                    $allTasks .= ' ORDER BY dateto ASC';
+                    echo "<b>Udløber snart</b>";
+                }
                 echo "</p>";
                 // Fremviser alle opgaver, som endnu ikke er taget og som ikke er udløbet i den ønskede sortering
                 $showResult = $mySQL->query($allTasks);
