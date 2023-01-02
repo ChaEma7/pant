@@ -269,7 +269,7 @@ if(isset($_POST['createTask'])){
         $sql = "CALL taskDone ('$taskID')";
         $result = $mySQL->query($sql);
         
-        header("location: your-tasks.php");
+        header("location: task-done.php?id=$taskID");
         exit;         
     }
 
@@ -373,6 +373,17 @@ if(isset($_POST['createTask'])){
         
         header("location: your-tasks.php");
         exit;         
+    }
+
+// ==================================== ANMELD =======================================
+
+// Vidersender til edit-task.php?id=$taskID når der trykkes på redigér knappen på task-detals.php
+  if(isset($_POST['giveRating'])){  
+        $taskID = $_REQUEST['taskID'];
+        $userID = $_SESSION['login'];
+
+        header("location: rate-user.php?id=$taskID");
+        exit;
     }
 
 ?>

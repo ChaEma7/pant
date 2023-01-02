@@ -436,6 +436,7 @@ input[type="checkbox"] {
 }
 
 .btn {
+  -webkit-appearance: none;
   width: 350px;
   margin: 30px auto;
   border: none;
@@ -465,6 +466,12 @@ input[type="checkbox"] {
   width: 330px;
   font-size: 12px;
   font-family: "Poppins", sans-serif;
+}
+
+.rateTask {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 0px;
 }
 
 textarea {
@@ -559,6 +566,18 @@ textarea {
 
 .popup.active .popup-content {
   display: block;
+}
+
+.popupAfslut {
+  height: 343px;
+}
+
+.popupAfslut p {
+  text-align: center;
+}
+
+.popupAfslut .popup-btns {
+  margin: 0 auto;
 }
 
 /* ======================================= CREATE TASK SIDEN ======================================= */
@@ -905,7 +924,7 @@ h5 {
 .pilned {
   position: absolute;
   right: 10px;
-  margin-top: -5px;
+  top: 3px;
 }
 
 .sorterings-kasse {
@@ -1045,4 +1064,14 @@ h5 {
 .popup-text {
   padding: 0;
   text-align: center;
+}
+
+/*=================================== OPGAVE FÆRDIG =======================================*/
+
+.taskDoneSection {
+  margin: 50% auto;
+}
+
+.taskDoneSection h1 {
+  padding-top: 0px;
 }

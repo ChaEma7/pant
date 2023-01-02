@@ -33,6 +33,11 @@
     $result = $mySQL->query($activeQuery);
     $activeStatus = $result->fetch_object()->active;
 
+    $creatorNAME = "SELECT firstname FROM pantUsers WHERE id = '$creatorID'";
+    $result = $mySQL->query($creatorNAME);
+    $TaskCreator = $result->fetch_object()->firstname;
+
+
 ?>
 <!DOCTYPE html>
 <html lang="da">
@@ -99,7 +104,7 @@
                         </form>";
                     } else if($takerID == $userID) {
                         echo "<form  id='book-form' method='post' action='backend.php?taskID=$taskID'>
-                            <input class='btn' type='submit' name='taskDone' value='Afslut opgave'>
+                            <input class='btn' type='submit' name='taskDone' value='Afslut opgave'>   
                             <button class='slet-btn nedtonet' onclick='togglePopupReleaseTask(); return false'>Annuller og frigiv opgave</button>
 
                             <section class='popup' id='popup-frigiv'>

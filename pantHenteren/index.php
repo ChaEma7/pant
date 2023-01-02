@@ -13,7 +13,7 @@
             } else {
                 $userID = $_SESSION['login'];
             }
-$userID = $_SESSION['login'];
+// $userID = $_SESSION['login'];
 // Vælger all data fra viewet taskCard hvor creatorid ikke er det id, som der er logget ind med, og hvor takerid er NULL.
 // Altså fremvises kun opgaver man ikke selv har oprettet, og som endnu ikke er taget af andre.
 // Disse lægges i variabler som bruges senere.

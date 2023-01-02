@@ -15,6 +15,23 @@ function togglePopupSortTask() {
   document.getElementById("popup-sorting").classList.toggle("active");
 }
 
+// function togglePopupTaskDone() {
+//   document.getElementById("popup-afslut").classList.toggle("active");
+// }
+
+// document.getElementById("finishTask").onclick = function () {
+//   togglePopupTaskDone();
+//   return false;
+// };
+
+document.getElementById("noRating").onclick = function () {
+  location.href = "your-tasks.php?";
+};
+
+document.getElementById("rateTask").onclick = function () {
+  location.href = "rate-user.php?id=$taskID";
+};
+
 // Sørger for, at kun en chekbox i en gruppe kan være chekket
 function onlyOne(checkbox) {
   var checkboxes = document.getElementsByName("pickup");
