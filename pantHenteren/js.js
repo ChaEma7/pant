@@ -15,6 +15,10 @@ function togglePopupSortTask() {
   document.getElementById("popup-sorting").classList.toggle("active");
 }
 
+function togglePopupDeleteReview(); {
+  document.getElementById("popup-detele-review").classList.toggle("active");
+}
+
 // function togglePopupTaskDone() {
 //   document.getElementById("popup-afslut").classList.toggle("active");
 // }
@@ -32,13 +36,13 @@ document.getElementById("rateTask").onclick = function () {
   location.href = "rate-user.php?id=$taskID";
 };
 
-// Sørger for, at kun en chekbox i en gruppe kan være chekket
-function onlyOne(checkbox) {
-  var checkboxes = document.getElementsByName("pickup");
-  checkboxes.forEach((item) => {
-    if (item !== checkbox) item.checked = false;
-  });
-}
+// // Sørger for, at kun en chekbox i en gruppe kan være chekket
+// function onlyOne(checkbox) {
+//   var checkboxes = document.getElementsByName("pickup");
+//   checkboxes.forEach((item) => {
+//     if (item !== checkbox) item.checked = false;
+//   });
+// }
 
 // Sørger for, at kun en chekbox i en gruppe kan være chekket
 function onlyOneSort(checkbox) {

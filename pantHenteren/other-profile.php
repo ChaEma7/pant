@@ -29,7 +29,11 @@
                 $_SESSION['firstname'] = $user->firstname;
                 $_SESSION['profilepicture'] = $user->profilepicture;
                 $_SESSION['profiletext'] = $user->profiletext;
+
+                $allReviews = "SELECT * FROM ratingCards WHERE ratedid = '$userID' ORDER BY id DESC LIMIT 4";
             }
+    
+    
     ?>
 <!DOCTYPE html>
 <html lang="da">
@@ -40,6 +44,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panthenteren</title>
     <link rel="stylesheet" href="style.css">
+    <!-- linket er for at få fremvist stjernerne -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -79,8 +85,40 @@
                                 echo "<p class='profiltekst'>" . $_SESSION['profiletext'] . "</p>";
                             }                   
                             ?>
+
+                        
+                            <section class="index-headers">
+                                <h2>Anmeldelser</h2>
+                                <a href="all-reviews.php?id=<?php echo $userID ?>">se alle <b class="seAllePil">&rsaquo;</b></a>
+                            </section>
+                            <section class="index-scrolls">
+                                <?php 
+                                    
+                                    $showResult = $mySQL->query($allReviews);
+                                    // var_dump($showResult);
+                                    while($dataRow = $showResult->fetch_object("RatingCards")) {
+                                    echo $dataRow->RatingCard();
+                                    }                                    
+                                ?>
+                            </section>
+                        
+                        
                     </div>
+
+
             </section> 
+
+            <section class='popup' id='popup-detele-review'>
+                <section class='popup-overlay'></section>
+                <section class='popup-content popup-content-book'>
+                    <section class='close-btn' onclick='togglePopupBookTask()'><img src='img/luk-ikon.png' alt='luk ikon'></section>
+                    <h2 class='release-h2'>Er du sikker på, at du vil booke opgaven?</h2>
+                    <p class='popup-text'>Når du har bekræftet bookingen, kan du finde opgaven under ''Mine opgaver''.</p>
+                    <section class='popup-btns'>
+                        <input class='btn book-btn' type='submit' name='bookTask' value='Bekræft booking'>
+                    </section>
+                </section>
+            </section>
 
     </main>
     <footer>

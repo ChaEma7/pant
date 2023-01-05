@@ -24,12 +24,13 @@
     $result = $mySQL->query($creatorIDquery);
     $creatorID = $result->fetch_object()->creatorid;
 
-    $sql = "SELECT firstname, profilepicture FROM pantUsers WHERE id = '$creatorID'";
+    $sql = "SELECT firstname, profilepicture, id FROM pantUsers WHERE id = '$creatorID'";
     $response = $mySQL->query($sql);
     $user = $response->fetch_object();
     
     $_SESSION['firstname'] = $user->firstname;
     $_SESSION['profilepicture'] = $user->profilepicture;
+    $_SESSION['userID'] = $user->id;
 
 
 
@@ -46,7 +47,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <link href="https://rangeslider.js.org/assets/rangeslider.js/dist/rangeslider.css" rel="stylesheet"/>
+    <!-- linket er for at få fremvist stjernerne -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css"/>
 
+    <!-- linket er for at få mængde knapperne til at se ud, som vi gerne vil have dem -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://rangeslider.js.org/assets/rangeslider.js/dist/rangeslider.min.js"></script>
 </head>
@@ -68,10 +72,43 @@
                         echo "<img class='profilePics' src='original/" . $_SESSION['profilepicture'] . "'></img>";
                     }
                     ?>
-                    <form method="post" action="backend.php" enctype="multipart/form-data"> 
+                    <form method="post" action="backend.php?id=<?php echo $_SESSION['userID'] ?>" enctype="multipart/form-data"> 
+                        <section class="rating">
+                            <label>
+                                <input type="radio" name="stars" value="1" />
+                                <span class="fa fa-star icon"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="stars" value="2" />
+                                <span class="fa fa-star icon"></span>
+                                <span class="fa fa-star icon"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="stars" value="3" />
+                                <span class="fa fa-star icon"></span>
+                                <span class="fa fa-star icon"></span>
+                                <span class="fa fa-star icon"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="stars" value="4" />
+                                <span class="fa fa-star icon"></span>
+                                <span class="fa fa-star icon"></span>
+                                <span class="fa fa-star icon"></span>
+                                <span class="fa fa-star icon"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="stars" value="5" />
+                                <span class="fa fa-star icon"></span>
+                                <span class="fa fa-star icon"></span>
+                                <span class="fa fa-star icon"></span>
+                                <span class="fa fa-star icon"></span>
+                                <span class="fa fa-star icon"></span>
+                            </label>
+                        </section>
                         <textarea name="ratingText" id="ratingText" cols="30" rows="5" placeholder="Skriv en anmeldelse her"></textarea>
                         <input class="btn" type="submit" name="submitRating" value="Giv anmeldelse">
                     </form>
+                    
                 <!-- <button class='slet-btn rateTask' onclick="location.href = 'your-tasks.php'">Spring over</button> -->
                 <button class='slet-btn rateTask' id="noRating">Annuller</button>
         </section>

@@ -378,12 +378,29 @@ if(isset($_POST['createTask'])){
 // ==================================== ANMELD =======================================
 
 // Vidersender til edit-task.php?id=$taskID når der trykkes på redigér knappen på task-detals.php
-  if(isset($_POST['giveRating'])){  
-        $taskID = $_REQUEST['taskID'];
-        $userID = $_SESSION['login'];
+    if(isset($_POST['giveRating'])){  
+            $taskID = $_REQUEST['taskID'];
+            $userID = $_SESSION['login'];
 
-        header("location: rate-user.php?id=$taskID");
-        exit;
-    }
+            header("location: rate-user.php?id=$taskID");
+            exit;
+        }
+
+
+    // Opretter anmeldelse i pantRating tabellen
+    if(isset($_POST['submitRating'])){
+            $creatorID = $_SESSION['login'];
+            $rating = $_POST['stars'];
+            $review = $_POST['ratingText'];
+            $ratedID = $_REQUEST['id'];
+            
+            // Kalder addTask proceduren og indsætter de rigtige værdier i de rigtige kolonner
+            $sql = "CALL addRating ( '$creatorID', '$rating', '$review', '$ratedID')";
+            $result = $mySQL->query($sql);
+
+            header("location: your-tasks.php");
+            exit; 
+                      
+        }
 
 ?>

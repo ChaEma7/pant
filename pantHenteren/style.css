@@ -336,7 +336,6 @@ input[type="checkbox"] {
 /*--------- task cards index ----------*/
 
 .index-scrolls {
-  max-height: 170px;
   display: flex;
   padding: 0 20px 0 15px;
   flex-direction: row;
@@ -386,7 +385,7 @@ input[type="checkbox"] {
 
 .profiltekst {
   width: 350px;
-  min-height: 250px;
+  min-height: 100px;
   padding: 0 20px;
 }
 
@@ -1074,4 +1073,168 @@ h5 {
 
 .taskDoneSection h1 {
   padding-top: 0px;
+}
+
+/* ======================================= RATING ======================================= */
+
+/* input[type="radio"] {
+  -webkit-appearance: none;
+} */
+
+.rating {
+  display: inline-block;
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  font-size: 40px;
+}
+
+.rating label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  cursor: pointer;
+}
+
+.rating label:last-child {
+  position: static;
+}
+
+.rating label:nth-child(1) {
+  z-index: 5;
+}
+
+.rating label:nth-child(2) {
+  z-index: 4;
+}
+
+.rating label:nth-child(3) {
+  z-index: 3;
+}
+
+.rating label:nth-child(4) {
+  z-index: 2;
+}
+
+.rating label:nth-child(5) {
+  z-index: 1;
+}
+
+.rating label input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.rating label .icon {
+  float: left;
+  color: transparent;
+}
+
+.rating label:last-child .icon {
+  color: var(--lightgreen);
+}
+
+.rating:not(:hover) label input:checked ~ .icon,
+.rating:hover label:hover input ~ .icon {
+  color: var(--darkgreen);
+}
+
+.rating label input:focus:not(:checked) ~ .icon:last-child {
+  color: #000;
+  text-shadow: 0 0 5px var(--darkgreen);
+}
+
+/* ======================================= REVIEW ======================================= */
+
+.review-p {
+  padding: 0;
+  font-size: 12px;
+  margin-block-start: 5px;
+  margin-block-end: 5px;
+  display: inline-block;
+  width: 280px;
+  min-height: 73px;
+  overflow: hidden;
+  margin: 0;
+}
+
+.reviewCardDiv {
+  display: flex;
+  gap: 5px;
+  margin: 0 5px;
+}
+
+.rediger-ikon-rating {
+  height: 30px;
+  float: right;
+  top: 10px;
+  right: 10px;
+  padding-left: 80px;
+}
+
+.reviewBox {
+  margin: auto;
+  width: 350px;
+  border-top: 2px solid var(--lightgreen);
+  border-bottom: 2px solid var(--lightgreen);
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.reviewTop {
+  display: flex;
+  width: 330px;
+  padding: 10px;
+}
+
+.reviewInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+  padding-left: 10px;
+  margin-top: -2px;
+}
+
+.reviewInfo h4 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.reviewStjerner {
+  display: flex;
+  gap: 3px;
+}
+
+.stjernePics {
+  height: 17px;
+}
+
+.reviewDetailText p {
+  padding: 0 10px;
+  font-size: 14px;
+  margin: 0 0 10px 0;
+}
+
+.rediger-ikon-ratingDetail {
+  padding-left: 140px;
+}
+
+.delete-review-btn {
+  height: 20px;
+  width: 20px;
+  border: none;
+  margin-left: 140px;
+  background: transparent;
+  background-image: url(img/skraldespand.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.delete-review-btn-ratingCards {
+  margin-left: 80px;
 }
