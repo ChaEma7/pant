@@ -47,7 +47,7 @@ class RatingDetail {
         }        
         $response .= "</div></div>";
         if($this->creatorid == $_SESSION['login']){
-            $response .= "<button class='delete-review-btn' onclick='togglePopupDeleteReview(); return false'></button>";
+            $response .= "<button class='delete-review-btn delete-review-btn-overview' onclick='togglePopupDeleteReview(); return false'></button>";
         }
         $response .= "</div>";
         $response .= "<div class='reviewDetailText'>";

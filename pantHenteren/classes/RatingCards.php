@@ -4,7 +4,7 @@ class RatingCards {
     public function RatingCard() {
         $imgPath = "original/" . $this->profilepicture;
 
-        $response = "<div class='reviewCardDiv'><div class='index-task-cards'><div class='taskTop'><div class='topdiv'>";
+        $response = "<div class='reviewCardDiv'><div class='index-task-cards'><div class='taskTop'><div class='topdiv topdiv-rating'>";
         if($this->profilepicture == NULL){
             $response .= "<img class='taskPics' src='img/dummy.jpg'></img>";
         } else {

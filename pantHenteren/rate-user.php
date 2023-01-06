@@ -105,12 +105,12 @@
                                 <span class="fa fa-star icon"></span>
                             </label>
                         </section>
-                        <textarea name="ratingText" id="ratingText" cols="30" rows="5" placeholder="Skriv en anmeldelse her"></textarea>
+                        <textarea name="ratingText" id="ratingText" cols="30" rows="5" placeholder="Skriv en anmeldelse her" maxlength="150"></textarea>
                         <input class="btn" type="submit" name="submitRating" value="Giv anmeldelse">
                     </form>
                     
                 <!-- <button class='slet-btn rateTask' onclick="location.href = 'your-tasks.php'">Spring over</button> -->
-                <button class='slet-btn rateTask' id="noRating">Annuller</button>
+                <button class="slet-btn rateTask" id="noRating" onclick="history.back()">Annuller</button>
         </section>
 
             

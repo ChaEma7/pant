@@ -24,6 +24,10 @@
         $thisUser = $response->fetch_object();
     $_SESSION['firstname'] = $thisUser->firstname;
 
+    $allReviews = "SELECT * FROM ratingCards WHERE ratedid = '$ratedID' ORDER BY id DESC LIMIT 4";
+    $response = $mySQL->query($allReviews);
+    $review = $response->fetch_object();
+
 
 ?>
 <!DOCTYPE html>
@@ -48,14 +52,32 @@
         </header>
        <main>
                 <h2>Hvad siger folk om <?php echo $_SESSION['firstname'] ?>?</h2>
-                
+                <section class="allreviews-kasse">
                     <?php 
-                        $showResult = $mySQL->query($allReviews);
-                        // var_dump($showResult);
-                        while($dataRow = $showResult->fetch_object("RatingDetail")) {
-                        echo $dataRow->Reviews();
-                        }                                
+                        if($response->num_rows > 0) {
+                            // Finder review idet og ligger det i en session som sendes videre til backend, hvis der slettes
+                            $_SESSION['reviewID'] = $review->id;
+                            $showResult = $mySQL->query($allReviews);
+                            while($dataRow = $showResult->fetch_object("RatingDetail")) {
+                            echo $dataRow->Reviews();
+                        }} else {
+                            echo "<p class='dummytekst center dummytekst-profile'>Der er endnu ingen anmeldelser</p>";
+                        }                              
                     ?>
+                </section>
+                <section class='popup' id='popup-detele-review'>
+                    <section class='popup-overlay'></section>
+                    <section class='popup-content'>
+                        <section class='close-btn' onclick='togglePopupDeleteReviewOverview()'><img src='img/luk-ikon.png' alt='luk ikon'></section>
+                        <h2 class='release-h2 delete-review-h2'>Er du sikker på, at du vil slette dit anmeldelse af <?php echo $_SESSION['firstname'] ?>?</h2>
+                        <section class='popup-btns'>
+                            <button class="annuller-btn" onclick="togglePopupDeleteReviewOverview()">Annuller</button>
+                            <form method='post' action='backend.php?reviewID=<?php echo $_SESSION['reviewID']?>&userID=<?php echo $ratedID?>'>
+                                <input class='delete-btn' type='submit' name='delete-review-from-all-reviews' value='Slet anmeldelse'>
+                            </form>
+                        </section>
+                    </section>
+                </section>
                 
 
        </main>

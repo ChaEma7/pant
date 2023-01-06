@@ -211,7 +211,7 @@ if(isset($_POST['createTask'])){
         $bags = $_POST['bags'];
         $sacks = $_POST['sacks'];
         $crates = $_POST['crates'];
-        $pickup = $_POST['pickup'];
+        // $pickup = $_POST['pickup'];
         $earnings = 100 - $_POST['udbytte'];
         $timefrom = $_POST['timefrom'];
         $timeto = $_POST['timeto'];
@@ -226,7 +226,7 @@ if(isset($_POST['createTask'])){
             exit;
         } else {
             // Kalder addTask proceduren og indsætter de rigtige værdier i de rigtige kolonner
-            $sql = "CALL addTask ( '$creatorID', '', '', '$bags', '$sacks', '$crates', '$pickup', '$earnings', '$timefrom', '$timeto', '$adress', '$zipcode', '$city', '$note')";
+            $sql = "CALL addTask ( '$creatorID', '', '', '$bags', '$sacks', '$crates', '$earnings', '$timefrom', '$timeto', '$adress', '$zipcode', '$city', '$note')";
             $result = $mySQL->query($sql);
             
             header("location: your-tasks.php");
@@ -291,7 +291,7 @@ if(isset($_POST['createTask'])){
         $inputbags = $_POST['bags'];
         $inputsacks = $_POST['sacks'];
         $inputcrates = $_POST['crates'];
-        $inputpickup = $_POST['pickup'];
+        // $inputpickup = $_POST['pickup'];
         $inputearnings = 100 - $_POST['udbytte'];
         $inputdatefrom = $_POST['timefrom'];
         $inputdateto = $_POST['timeto'];
@@ -316,10 +316,10 @@ if(isset($_POST['createTask'])){
             $result = $mySQL->query($sql);
         }
 
-        if($inputpickup != ""){
-            $sql = "UPDATE pantTask SET pickup = '$inputpickup' WHERE id = '$taskID' ";
-            $result = $mySQL->query($sql);
-        }
+        // if($inputpickup != ""){
+        //     $sql = "UPDATE pantTask SET pickup = '$inputpickup' WHERE id = '$taskID' ";
+        //     $result = $mySQL->query($sql);
+        // }
 
         if($inputearnings != ""){
             $sql = "UPDATE pantTask SET earnings = '$inputearnings' WHERE id = '$taskID' ";
@@ -402,5 +402,28 @@ if(isset($_POST['createTask'])){
             exit; 
                       
         }
+
+    // ------------------ SLET REVIEW -------------------
+
+    
+    if(isset($_POST['delete-review-from-other-profile'])){
+        $ratedID = $_REQUEST['reviewID'];
+        $userID = $_REQUEST['userID'];
+        
+        // Kalder proceduren deleteReview som sletter reviewet fra databasen
+        $sql = "CALL deleteReview ('$ratedID')";
+        $result = $mySQL->query($sql);
+        header("location: other-profile.php?id=$userID"); 
+    }
+
+    if(isset($_POST['delete-review-from-all-reviews'])){
+        $ratedID = $_REQUEST['reviewID'];
+        $userID = $_REQUEST['userID'];
+        
+        // Kalder proceduren deleteReview som sletter reviewet fra databasen
+        $sql = "CALL deleteReview ('$ratedID')";
+        $result = $mySQL->query($sql);
+        header("location: all-reviews.php?id=$userID");
+    }
 
 ?>

@@ -25,6 +25,11 @@
                 $_SESSION['profiletext'] = $user->profiletext;
 
                 $reviews = "SELECT * FROM ratingCards WHERE ratedid = '$userID' ORDER BY id DESC LIMIT 4";
+                // Udregner gennemsnittet af den kolonne som hedder rating i pantRating og gemmer det som avg(nyt navn)
+                // ROUND afrunder tallet med en enkelt decimal
+                $allReviews = "SELECT ROUND(AVG(rating), 1) AS avg FROM pantRating WHERE ratedid = '$userID'";
+                $result = $mySQL->query($allReviews);
+                $averageRating = $result->fetch_assoc();
             }
     ?>
 <!DOCTYPE html>
@@ -54,56 +59,64 @@
     <main>
         
             <section>
-                <div>
-                    <?php
-                    /*  Hvis der endnu ikke er uploadet et billede til brugerens profil fremvises et dummy billede 
-                        ellers fremvises det sidst uploadet billede i profilen */
-                    if(!isset($_SESSION['profilepicture'])){
-                        echo "<img class='profilePics' src='img/dummy.jpg'></img>";
-                    } else {
-                        echo "<img class='profilePics' src='original/" . $_SESSION['profilepicture'] . "'></img>";
-                    }
-                    //  Her viser den brugerens navn
-                    echo "<h2>" . $_SESSION['firstname'] . "</h2> <br>";
-                    ?>
-                    <a href="update.php"><img class="rediger-ikon" src="img/rediger-ikon.png" alt="rediger ikon"></a>
-                    <div class="backlayer">
-                        <h2 class="left-h2">Profiltekst</h2>
-                            <?php
-                            /*  Hvis der endnu ikke er lavet en profiltekst til brugerens profil fremvises et dummy tekst 
-                                ellers fremvises profilteksten */
-                            if($_SESSION['profiletext'] == NULL) {
-                                echo "<p class='profiltekst'>Jeg har endnu ikke tilføjet en profil tekst, men jeg er rigtig god til at aflevere pant.</p>";
-                            } else {
-                                echo "<p class='profiltekst'>" . $_SESSION['profiletext'] . "</p>";
-                            }                   
-                            ?>
-                        
-                        <section class="index-headers">
-                            <h2>Anmeldelser</h2>
-                            <a href="all-reviews.php?id=<?php echo $userID ?>">se alle <b class="seAllePil">&rsaquo;</b></a>
-                        </section>
-                        <section class="index-scrolls">
-                            <?php 
-                                
-                                $showResult = $mySQL->query($reviews);
-                                // var_dump($showResult);
-                                while($dataRow = $showResult->fetch_object("RatingCards")) {
-                                echo $dataRow->RatingCard();
-                                }                                    
-                            ?>
-                        </section>
-
-                        <section class="logout">
-                            <!-- Navigere til logout.php som sletter sessionen og navigere tilbage til login.php -->
-                            <a href="logout.php"><img class="logout-ikon" src="img/logout-ikon.png" alt="logout ikon"> Log af</a>
-                        </section>
-
-                        
+                <?php
+                
+                /*  Hvis der endnu ikke er uploadet et billede til brugerens profil fremvises et dummy billede 
+                    ellers fremvises det sidst uploadet billede i profilen */
+                if(!isset($_SESSION['profilepicture'])){
+                    echo "<img class='profilePics' src='img/dummy.jpg'></img>";
+                } else {
+                    echo "<img class='profilePics' src='original/" . $_SESSION['profilepicture'] . "'></img>";
+                }
+                if($averageRating['avg'] != NULL ){
+                echo 
+                "<figure class='rating-figur'>
+                    <div class='rating-kasse'>
+                        <span class='fa fa-star icon fa-star-ratingCard'></span>
+                        <p class='userRating'>" . $averageRating['avg'] . "</p>
                     </div>
-
-                    
+                </figure>";
+                }
+                //  Her viser den brugerens navn
+                echo "<h2>" . $_SESSION['firstname'] . "</h2> <br>";
+                ?>
+                
+                <a href="update.php"><img class="rediger-ikon" src="img/rediger-ikon.png" alt="rediger ikon"></a>                    
             </section> 
+
+            <section class="backlayer">
+                <h2 class="left-h2">Profiltekst</h2>
+                    <?php
+                    /*  Hvis der endnu ikke er lavet en profiltekst til brugerens profil fremvises et dummy tekst 
+                        ellers fremvises profilteksten */
+                    if($_SESSION['profiletext'] == NULL) {
+                        echo "<p class='profiltekst'>Jeg har endnu ikke tilføjet en profil tekst, men jeg er rigtig god til at aflevere pant.</p>";
+                    } else {
+                        echo "<p class='profiltekst'>" . $_SESSION['profiletext'] . "</p>";
+                    }                   
+                    ?>
+                
+                <section class="index-headers">
+                    <h2>Anmeldelser</h2>
+                    <a href="all-reviews.php?id=<?php echo $userID ?>">se alle <b class="seAllePil">&rsaquo;</b></a>
+                </section>
+                <section class="index-scrolls">
+                    <?php 
+                        $showResult = $mySQL->query($reviews);
+                        // var_dump($showResult);
+                        while($dataRow = $showResult->fetch_object("RatingCards")) {
+                        echo $dataRow->RatingCard();
+                        }                                    
+                    ?>
+                </section>
+
+                <section class="logout">
+                    <!-- Navigere til logout.php som sletter sessionen og navigere tilbage til login.php -->
+                    <a href="logout.php"><img class="logout-ikon" src="img/logout-ikon.png" alt="logout ikon"> Log af</a>
+                </section>
+
+                
+            </section>
 
     </main>
     <footer>

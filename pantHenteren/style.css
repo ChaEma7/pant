@@ -362,6 +362,36 @@ input[type="checkbox"] {
   height: 110px;
   width: 110px;
   border-radius: 100%;
+  display: block;
+  z-index: 1;
+  margin: auto;
+}
+
+.rating-figur {
+  width: 60px;
+  height: 30px;
+  background-color: var(--palegreen);
+  border-radius: 50px;
+  margin: -10px auto 10px auto;
+  position: relative;
+  z-index: 10;
+}
+
+.rating-kasse {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  gap: 5px;
+}
+
+.userRating {
+  font-weight: 500;
+}
+
+.userRating {
+  padding: 0;
+  margin: 0;
 }
 
 .rediger-ikon {
@@ -458,18 +488,17 @@ input[type="checkbox"] {
   background-color: transparent;
   width: 100px;
   color: var(--darkgreen);
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   border: none;
   padding: 10px;
   border-radius: 10px;
   width: 330px;
-  font-size: 12px;
+  font-size: 16px;
+  font-weight: 600;
   font-family: "Poppins", sans-serif;
 }
 
 .rateTask {
-  font-size: 16px;
-  font-weight: 600;
   margin-bottom: 0px;
 }
 
@@ -809,6 +838,11 @@ input[type="datetime-local"] {
   margin-top: -10px;
 }
 
+.topdiv-rating {
+  position: relative;
+  width: 100%;
+}
+
 h4 {
   font-weight: 300;
   font-size: 16px;
@@ -1041,6 +1075,14 @@ h5 {
   color: var(--texttrans);
 }
 
+.anmeldelse-btn-task-detail {
+  margin: 0px auto 50px auto;
+}
+
+#book-form {
+  padding-bottom: 10px;
+}
+
 /*--------- annuller og frigiv opgave ----------*/
 .release-btn {
   margin-top: -5px;
@@ -1087,6 +1129,7 @@ h5 {
   height: 50px;
   line-height: 50px;
   font-size: 40px;
+  margin: 30px auto 20px auto;
 }
 
 .rating label {
@@ -1149,6 +1192,14 @@ h5 {
 
 /* ======================================= REVIEW ======================================= */
 
+.allreviews-kasse {
+  margin-bottom: 100px;
+}
+
+.reviews-kasse {
+  padding-bottom: 70px;
+}
+
 .review-p {
   padding: 0;
   font-size: 12px;
@@ -1185,6 +1236,7 @@ h5 {
 }
 
 .reviewTop {
+  position: relative;
   display: flex;
   width: 330px;
   padding: 10px;
@@ -1227,7 +1279,8 @@ h5 {
   height: 20px;
   width: 20px;
   border: none;
-  margin-left: 140px;
+  position: absolute;
+  right: 0px;
   background: transparent;
   background-image: url(img/skraldespand.png);
   background-size: cover;
@@ -1235,6 +1288,21 @@ h5 {
   background-position: center;
 }
 
-.delete-review-btn-ratingCards {
-  margin-left: 80px;
+/* .delete-review-btn-ratingCards {
+  position: relative;
+  margin-left: 0;
+} */
+
+.delete-review-btn-overview {
+  margin-top: 5px;
+  right: 10px;
+}
+
+.delete-review-h2 {
+  padding: 0;
+  width: 350px !important;
+}
+
+.dummytekst-profile {
+  margin: 20px auto 0 auto;
 }

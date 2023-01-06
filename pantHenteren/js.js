@@ -15,7 +15,11 @@ function togglePopupSortTask() {
   document.getElementById("popup-sorting").classList.toggle("active");
 }
 
-function togglePopupDeleteReview(); {
+function togglePopupDeleteReview() {
+  document.getElementById("popup-detele-review").classList.toggle("active");
+}
+
+function togglePopupDeleteReviewOverview() {
   document.getElementById("popup-detele-review").classList.toggle("active");
 }
 
@@ -28,13 +32,15 @@ function togglePopupDeleteReview(); {
 //   return false;
 // };
 
-document.getElementById("noRating").onclick = function () {
-  location.href = "your-tasks.php?";
-};
+// Det var for at prøve at åbne en popup samtidig med at man afsluttede opgaven
+// document.getElementById("noRating").onclick = function () {
+//   location.href = "your-tasks.php?";
+// };
 
-document.getElementById("rateTask").onclick = function () {
-  location.href = "rate-user.php?id=$taskID";
-};
+// Det var for at prøve at åbne en popup samtidig med at man afsluttede opgaven
+// document.getElementById("rateTask").onclick = function () {
+//   location.href = "rate-user.php?id=$taskID";
+// };
 
 // // Sørger for, at kun en chekbox i en gruppe kan være chekket
 // function onlyOne(checkbox) {

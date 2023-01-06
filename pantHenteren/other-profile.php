@@ -30,7 +30,14 @@
                 $_SESSION['profilepicture'] = $user->profilepicture;
                 $_SESSION['profiletext'] = $user->profiletext;
 
-                $allReviews = "SELECT * FROM ratingCards WHERE ratedid = '$userID' ORDER BY id DESC LIMIT 4";
+                $reviews = "SELECT * FROM ratingCards WHERE ratedid = '$userID' ORDER BY id DESC LIMIT 4";
+                $response = $mySQL->query($reviews);
+                $review = $response->fetch_object();
+
+                $allReviews = "SELECT ROUND(AVG(rating), 1) AS avg FROM pantRating WHERE ratedid = '$userID'";
+                $result = $mySQL->query($allReviews);
+                $averageRating = $result->fetch_assoc();
+                
             }
     
     
@@ -62,18 +69,27 @@
     <main>
         
             <section>
-                <div>
-                    <?php
-                    /*  Hvis der endnu ikke er uploadet et billede til brugerens profil fremvises et dummy billede 
-                        ellers fremvises det sidst uploadet billede i profilen */
-                    if(!isset($_SESSION['profilepicture'])){
-                        echo "<img class='profilePics' src='img/dummy.jpg'></img>";
-                    } else {
-                        echo "<img class='profilePics' src='original/" . $_SESSION['profilepicture'] . "'></img>";
-                    }
-                    //  Her viser den brugerens navn
-                    echo "<h2>" . $_SESSION['firstname'] . "</h2> <br>";
-                    ?>
+                
+                <?php
+                /*  Hvis der endnu ikke er uploadet et billede til brugerens profil fremvises et dummy billede 
+                    ellers fremvises det sidst uploadet billede i profilen */
+                if(!isset($_SESSION['profilepicture'])){
+                    echo "<img class='profilePics' src='img/dummy.jpg'></img>";
+                } else {
+                    echo "<img class='profilePics' src='original/" . $_SESSION['profilepicture'] . "'></img>";
+                }
+                if($averageRating['avg'] != NULL ){
+                echo 
+                "<figure class='rating-figur'>
+                    <div class='rating-kasse'>
+                        <span class='fa fa-star icon fa-star-ratingCard'></span>
+                        <p class='userRating'>" . $averageRating['avg'] . "</p>
+                    </div>
+                </figure>";
+                }
+                //  Her viser den brugerens navn
+                echo "<h2>" . $_SESSION['firstname'] . "</h2> <br>";
+                ?>
                     <div class="backlayer">
                         <h2 class="left-h2">Profiltekst</h2>
                             <?php
@@ -86,36 +102,38 @@
                             }                   
                             ?>
 
-                        
+                        <section class="reviews-kasse">  
                             <section class="index-headers">
                                 <h2>Anmeldelser</h2>
                                 <a href="all-reviews.php?id=<?php echo $userID ?>">se alle <b class="seAllePil">&rsaquo;</b></a>
                             </section>
                             <section class="index-scrolls">
                                 <?php 
-                                    
-                                    $showResult = $mySQL->query($allReviews);
-                                    // var_dump($showResult);
-                                    while($dataRow = $showResult->fetch_object("RatingCards")) {
-                                    echo $dataRow->RatingCard();
-                                    }                                    
+                                    if($response->num_rows > 0) {
+                                        // Finder review idet og ligger det i en session som sendes videre til backend, hvis der slettes
+                                        $_SESSION['reviewID'] = $review->id;
+                                        $showResult = $mySQL->query($reviews);
+                                        while($dataRow = $showResult->fetch_object("RatingCards")) {
+                                        echo $dataRow->RatingCard();}
+                                    } else {
+                                        echo "<p class='dummytekst center dummytekst-profile'>Der er endnu ingen anmeldelser</p>";
+                                    }                     
                                 ?>
                             </section>
-                        
-                        
+                        </section>  
                     </div>
-
-
             </section> 
 
             <section class='popup' id='popup-detele-review'>
                 <section class='popup-overlay'></section>
-                <section class='popup-content popup-content-book'>
-                    <section class='close-btn' onclick='togglePopupBookTask()'><img src='img/luk-ikon.png' alt='luk ikon'></section>
-                    <h2 class='release-h2'>Er du sikker på, at du vil booke opgaven?</h2>
-                    <p class='popup-text'>Når du har bekræftet bookingen, kan du finde opgaven under ''Mine opgaver''.</p>
+                <section class='popup-content'>
+                    <section class='close-btn' onclick='togglePopupDeleteReview()'><img src='img/luk-ikon.png' alt='luk ikon'></section>
+                    <h2 class='release-h2 delete-review-h2'>Er du sikker på, at du vil slette dit anmeldelse af <?php echo $_SESSION['firstname'] ?>?</h2>
                     <section class='popup-btns'>
-                        <input class='btn book-btn' type='submit' name='bookTask' value='Bekræft booking'>
+                        <button class="annuller-btn" onclick="togglePopupDeleteReview()">Annuller</button>
+                        <form method='post' action='backend.php?reviewID=<?php echo $_SESSION['reviewID']?>&userID=<?php echo $userID?>'>
+                            <input class='delete-btn' type='submit' name='delete-review-from-other-profile' value='Slet anmeldelse'>
+                        </form>
                     </section>
                 </section>
             </section>
@@ -130,4 +148,5 @@
     </footer>
 
 </body>
+<script src="js.js"></script>
 </html>

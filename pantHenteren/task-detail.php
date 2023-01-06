@@ -84,6 +84,13 @@
                     // og hvis du har oprettet opgaven
                     if($activeStatus != '1') {
                         echo "<p class='opgave-afsluttet'>Opgaven er afsluttet</p>";
+                        if($creatorID != $userID){
+                            echo    "<form  method='post' action='backend.php?taskID=$taskID'> 
+                                        <input class='btn anmeldelse-btn-task-detail' type='submit' name='giveRating' value='Giv " . $TaskCreator . " en anmeldelse'>
+                                    </form>";
+                        }
+                        
+
                     } else if($creatorID == $userID){
                         echo "<form id='book-form' method='post' action='backend.php?taskID=$taskID'>
                                 <input class='btn' type='submit' name='editTask' value='Redigér opgave'>
